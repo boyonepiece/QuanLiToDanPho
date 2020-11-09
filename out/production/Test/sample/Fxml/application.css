@@ -1,0 +1,6 @@
+#button1{
+    -fx-font-size: 15px;
+    -fx-background-color: rgba(1,10,10,1);
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
