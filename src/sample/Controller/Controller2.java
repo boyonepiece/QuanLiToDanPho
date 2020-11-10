@@ -8,6 +8,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -19,28 +21,32 @@ import java.util.ResourceBundle;
 
 public class Controller2 {
     @FXML
-    private Text Name, numberHome, detail;
+    private TextField hoTen, soNha, SDT, noiDung_Khac;
+
+    @FXML
+    private TextArea chiTiet;
 
     @FXML
     private AnchorPane ds_MoiNhan;
-
     @FXML
     private AnchorPane donNop;
-
     @FXML
     private AnchorPane ds_XuLi;
-
     @FXML
     private AnchorPane timKiem;
-
     @FXML
     private AnchorPane thongKe_Quy;
 
     @FXML
     public ComboBox quy;
+    @FXML
+    public ComboBox tim_Noidung;
+    @FXML
+    public ComboBox tim_Trangthai;
 
-
-    ObservableList<Integer> list = FXCollections.observableArrayList(1, 2, 3, 4);
+    ObservableList<Integer> list_quy = FXCollections.observableArrayList(1, 2, 3, 4);
+    ObservableList<String> list_Noidung = FXCollections.observableArrayList("An ninh, trật tự", "Cơ sở hạ tầng", "Quy định, quy chế", "Khác...");
+    ObservableList<String> list_Trangthai = FXCollections.observableArrayList("Mới ghi nhận", "Chưa giải quyết", "Đã giải quyết");
 
     //button Nộp đơn
     public void button_donNop(ActionEvent e){
@@ -76,6 +82,8 @@ public class Controller2 {
         this.ds_XuLi.setVisible(false);
         this.timKiem.setVisible(true);
         this.thongKe_Quy.setVisible(false);
+        tim_Noidung.setItems(list_Noidung);
+        tim_Trangthai.setItems(list_Trangthai);
     }
 
     //button danh sách quý
@@ -85,7 +93,7 @@ public class Controller2 {
         this.ds_XuLi.setVisible(false);
         this.timKiem.setVisible(false);
         this.thongKe_Quy.setVisible(true);
-        quy.setItems(list);
+        quy.setItems(list_quy);
     }
 
     //Xử lí nút Close ứng dụng

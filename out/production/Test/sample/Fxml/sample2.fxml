@@ -64,15 +64,15 @@
             <AnchorPane fx:id="donNop" layoutX="356.0" layoutY="123.0" prefHeight="704.0" prefWidth="631.0" visible="false">
                <children>
                   <Text layoutX="23.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Người làm đơn: " />
-                  <TextField layoutX="139.0" layoutY="88.0" prefHeight="31.0" prefWidth="204.0" />
+                  <TextField fx:id="hoTen" layoutX="139.0" layoutY="88.0" prefHeight="31.0" prefWidth="204.0" />
                   <Text layoutX="48.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thông tin đơn phản ánh, kiến nghị">
                      <font>
                         <Font size="28.0" />
                      </font>
                   </Text>
                   <Text layoutX="23.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Số nhà:" />
-                  <Text layoutX="20.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vấn đề cần phản ánh, kiến nghị:" />
-                  <TextField layoutX="77.0" layoutY="122.0" prefHeight="4.0" prefWidth="76.0" />
+                  <Text layoutX="20.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nội dung cần phản ánh, kiến nghị:" />
+                  <TextField fx:id="soNha" layoutX="77.0" layoutY="122.0" prefHeight="4.0" prefWidth="76.0" />
                   <Group layoutX="261.0" layoutY="165.0">
                      <children>
                         <RadioButton mnemonicParsing="false" text="An ninh, trật tự">
@@ -85,9 +85,12 @@
                      </children>
                   </Group>
                   <Text layoutX="20.0" layoutY="384.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chi tiết: " />
-                  <TextArea layoutX="94.0" layoutY="368.0" prefHeight="222.0" prefWidth="481.0" />
+                  <TextArea fx:id="chiTiet" layoutX="94.0" layoutY="368.0" prefHeight="222.0" prefWidth="481.0" />
                   <Button layoutX="283.0" layoutY="637.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="78.0" text="Lưu lại" />
                   <RadioButton layoutX="261.0" layoutY="269.0" mnemonicParsing="false" text="Khác:" toggleGroup="$Matter" />
+                  <TextField fx:id="noiDung_Khac" layoutX="335.0" layoutY="264.0" prefHeight="31.0" prefWidth="213.0" />
+                  <Label layoutX="224.0" layoutY="128.0" text="SĐT: " />
+                  <TextField fx:id="SDT" layoutX="261.0" layoutY="123.0" />
                </children>
             </AnchorPane>
             <Button layoutX="19.0" layoutY="115.0" mnemonicParsing="false" onAction="#button_donNop" prefHeight="31.0" prefWidth="217.0" text="Nộp đơn" />
@@ -114,6 +117,13 @@
                         <TableColumn prefWidth="157.0" text="Trạng thái" />
                     </columns>
                   </TableView>
+                  <Label layoutX="1173.0" layoutY="43.0" prefHeight="21.0" prefWidth="71.0" text="Tổng số: ">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" layoutX="1244.0" layoutY="46.0" prefHeight="21.0" prefWidth="24.0" text="0" />
+                  <Label layoutX="1277.0" layoutY="46.0" text="đơn" />
                </children>
             </AnchorPane>
             <Button layoutX="19.0" layoutY="293.0" mnemonicParsing="false" onAction="#button_thongKe_Quy" prefHeight="31.0" prefWidth="217.0" text="Thống kê của quý" />
@@ -136,6 +146,13 @@
                         <TableColumn prefWidth="157.0" text="Trạng thái" />
                      </columns>
                   </TableView>
+                  <Label layoutX="1173.0" layoutY="43.0" prefHeight="21.0" prefWidth="71.0" text="Tổng số: ">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" layoutX="1244.0" layoutY="46.0" prefHeight="21.0" prefWidth="24.0" text="0" />
+                  <Label layoutX="1277.0" layoutY="46.0" text="đơn" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="timKiem" layoutX="265.0" layoutY="114.0" prefHeight="722.0" prefWidth="1400.0" visible="false">
@@ -160,7 +177,9 @@
                   <TextField layoutX="152.0" layoutY="30.0" prefHeight="31.0" prefWidth="207.0" promptText="Họ tên" />
                   <TextField layoutX="377.0" layoutY="30.0" promptText="SĐT" />
                   <TextField layoutX="582.0" layoutY="30.0" promptText="Ngày" />
-                  <Button layoutX="803.0" layoutY="30.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="73.0" text="Tìm" />
+                  <Button layoutX="1134.0" layoutY="28.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="73.0" text="Tìm" />
+                  <ComboBox fx:id="tim_Noidung" layoutX="790.0" layoutY="28.0" prefWidth="150.0" promptText="Nội dung" />
+                  <ComboBox fx:id="tim_Trangthai" layoutX="961.0" layoutY="28.0" prefWidth="150.0" promptText="Trạng thái" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="thongKe_Quy" layoutX="265.0" layoutY="114.0" prefHeight="722.0" prefWidth="1400.0" visible="false">
@@ -185,6 +204,13 @@
                   <TextField layoutX="307.0" layoutY="29.0" prefHeight="31.0" prefWidth="88.0" promptText="Năm" />
                   <Button layoutX="416.0" layoutY="29.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="75.0" text="Xem" />
                   <ComboBox fx:id="quy" layoutX="216.0" layoutY="29.0" prefHeight="31.0" prefWidth="81.0" promptText="Quý" />
+                  <Label layoutX="1173.0" layoutY="43.0" prefHeight="21.0" prefWidth="71.0" text="Tổng số: ">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER_RIGHT" layoutX="1244.0" layoutY="46.0" prefHeight="21.0" prefWidth="24.0" text="0" />
+                  <Label layoutX="1277.0" layoutY="46.0" text="đơn" />
                </children>
             </AnchorPane>
          </children>
