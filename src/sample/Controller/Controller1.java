@@ -68,7 +68,7 @@ public class Controller1 {
     public void pressButton6(ActionEvent e) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../Fxml/sample2.fxml"));
         Stage window = (Stage)((Node) e.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root,1700,950);
+        Scene scene = new Scene(root,1500,900);
         //window.getIcons().add(new Image(getClass().getResourceAsStream("../book.png")));
         window.setTitle("Quản lý thông tin tổ dân phố");
         window.setX(0);

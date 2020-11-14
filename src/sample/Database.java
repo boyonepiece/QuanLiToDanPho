@@ -13,7 +13,7 @@ public class Database {
         this.driveName="com.microsoft.sqlserver.jdbc.SQLServerDriver";
         this.url="jdbc:sqlserver://localhost:1433;databaseName=QUANLYTODANPHO";
         this.username="sa";
-        this.password="23571113";
+        this.password="09042000";
         this.connection=createConnection();
     }
     public Connection createConnection(){
@@ -96,7 +96,7 @@ public class Database {
         preparedStatement.setString(4,phoneNumber);
         preparedStatement.setString(5,accommodation);
         preparedStatement.executeUpdate();
-        connection.close();
+       /* connection.close();*/
     }
 
     public void createPetitionInDatabase(String peopleID,String content,String day,int quarterOfYear,String classify ,int state) throws SQLException{

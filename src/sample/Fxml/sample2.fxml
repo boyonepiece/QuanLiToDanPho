@@ -3,11 +3,14 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -17,10 +20,11 @@
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.Controller2">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.Controller2">
    <top>
        <MenuBar BorderPane.alignment="CENTER">
            <menus>
@@ -61,38 +65,68 @@
                </font>
             </Label>
             <Separator layoutX="235.0" layoutY="86.0" orientation="VERTICAL" prefHeight="777.0" prefWidth="10.0" />
-            <AnchorPane fx:id="donNop" layoutX="356.0" layoutY="123.0" prefHeight="704.0" prefWidth="631.0" visible="false">
-               <children>
-                  <Text layoutX="23.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Người làm đơn: " />
-                  <TextField fx:id="hoTen" layoutX="139.0" layoutY="88.0" prefHeight="31.0" prefWidth="204.0" />
-                  <Text layoutX="48.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thông tin đơn phản ánh, kiến nghị">
-                     <font>
-                        <Font size="28.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="23.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Số nhà:" />
-                  <Text layoutX="20.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nội dung cần phản ánh, kiến nghị:" />
-                  <TextField fx:id="soNha" layoutX="77.0" layoutY="122.0" prefHeight="4.0" prefWidth="76.0" />
-                  <Group layoutX="261.0" layoutY="165.0">
+            <ScrollPane fx:id="donNop" hbarPolicy="NEVER" layoutX="413.0" layoutY="105.0" prefHeight="693.0" prefWidth="738.0">
+               <content>
+                  <AnchorPane prefHeight="687.0" prefWidth="720.0">
                      <children>
-                        <RadioButton mnemonicParsing="false" text="An ninh, trật tự">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="Matter" />
-                           </toggleGroup>
-                        </RadioButton>
-                        <RadioButton layoutY="35.0" mnemonicParsing="false" text="Cơ sở hạ tầng" toggleGroup="$Matter" />
-                        <RadioButton layoutY="68.0" mnemonicParsing="false" text="Quy định, quy chế" toggleGroup="$Matter" />
+                        <StackPane fx:id="stackPane" layoutX="3.0" layoutY="64.0" prefHeight="149.0" prefWidth="706.0">
+                           <children>
+                              <AnchorPane prefHeight="222.0" prefWidth="515.0">
+                                 <children>
+                                    <Text layoutX="19.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Người làm đơn: " wrappingWidth="86.00390625" />
+                                    <TextField fx:id="diaChi" layoutX="116.0" layoutY="98.0" prefHeight="26.0" prefWidth="204.0" />
+                                    <Text layoutX="13.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Địa chỉ:" />
+                                    <TextField fx:id="hoTen" layoutX="116.0" layoutY="16.0" prefHeight="23.0" prefWidth="204.0" />
+                                    <Text layoutX="386.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày sinh" wrappingWidth="87.955078125" />
+                                    <DatePicker fx:id="ngaySinh" layoutX="467.0" layoutY="15.0" prefHeight="26.0" prefWidth="198.0" />
+                                    <Text layoutX="386.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SĐT" wrappingWidth="21.076171875" />
+                                    <Text layoutX="381.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày nộp" />
+                                    <DatePicker fx:id="ngayNop" layoutX="467.0" layoutY="97.0" prefHeight="26.0" prefWidth="206.0" />
+                                    <TextField fx:id="SDT1" layoutX="467.0" layoutY="61.0" prefHeight="26.0" prefWidth="204.0" />
+                                    <Text layoutX="13.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chứng minh thư" wrappingWidth="99.1328125" />
+                                    <PasswordField fx:id="cmt1" layoutX="116.0" layoutY="62.0" prefHeight="26.0" prefWidth="205.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" visible="false">
+                                 <children>
+                                    <Text layoutX="171.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chúng minh thư :" />
+                                    <PasswordField fx:id="cmt2" layoutX="319.0" layoutY="28.0" prefHeight="26.0" prefWidth="230.0" />
+                                    <Text layoutX="171.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SĐT" wrappingWidth="51.47613525390625" />
+                                    <TextField fx:id="SDT2" layoutX="319.0" layoutY="70.0" prefHeight="26.0" prefWidth="230.0" />
+                                    <Text layoutX="171.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày nộp" />
+                                    <DatePicker fx:id="ngayNop2" layoutX="319.0" layoutY="110.0" prefHeight="26.0" prefWidth="229.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </StackPane>
+                        <Text layoutX="42.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thông tin đơn phản ánh, kiến nghị">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="18.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nội dung cần phản ánh, kiến nghị:" />
+                        <Group fx:id="groupNopDon" layoutX="262.0" layoutY="214.0">
+                           <children>
+                              <RadioButton fx:id="radioAnNinh" mnemonicParsing="false" text="An ninh, trật tự">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="Matter1" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="radioCoSo" layoutY="27.0" mnemonicParsing="false" text="Cơ sở hạ tầng" toggleGroup="$Matter1" />
+                              <RadioButton fx:id="radioQuyDinh" layoutY="52.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="250.0" text="Quy định, quy chế" toggleGroup="$Matter1" />
+                              <RadioButton fx:id="radioKhac" layoutY="84.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="110.0" text="Khác:" toggleGroup="$Matter1" />
+                           </children>
+                        </Group>
+                        <Text layoutX="20.0" layoutY="384.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chi tiết: " />
+                        <TextArea fx:id="chiTiet" layoutX="94.0" layoutY="368.0" prefHeight="222.0" prefWidth="481.0" />
+                        <Button layoutX="295.0" layoutY="611.0" mnemonicParsing="false" onAction="#luuLai" prefHeight="31.0" prefWidth="78.0" text="Lưu lại" />
+                        <TextField fx:id="noiDungKhac" layoutX="348.0" layoutY="293.0" prefHeight="31.0" prefWidth="213.0" />
+                        <Button layoutX="512.0" layoutY="38.0" mnemonicParsing="false" onAction="#changeHasInfo" text="Đã có thông tin" />
+                        <Button layoutX="633.0" layoutY="38.0" mnemonicParsing="false" onAction="#changeNoInfo" text="Chưa có" />
                      </children>
-                  </Group>
-                  <Text layoutX="20.0" layoutY="384.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chi tiết: " />
-                  <TextArea fx:id="chiTiet" layoutX="94.0" layoutY="368.0" prefHeight="222.0" prefWidth="481.0" />
-                  <Button layoutX="283.0" layoutY="637.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="78.0" text="Lưu lại" />
-                  <RadioButton layoutX="261.0" layoutY="269.0" mnemonicParsing="false" text="Khác:" toggleGroup="$Matter" />
-                  <TextField fx:id="noiDung_Khac" layoutX="335.0" layoutY="264.0" prefHeight="31.0" prefWidth="213.0" />
-                  <Label layoutX="224.0" layoutY="128.0" text="SĐT: " />
-                  <TextField fx:id="SDT" layoutX="261.0" layoutY="123.0" />
-               </children>
-            </AnchorPane>
+                  </AnchorPane>
+               </content>
+            </ScrollPane>
             <Button layoutX="19.0" layoutY="115.0" mnemonicParsing="false" onAction="#button_donNop" prefHeight="31.0" prefWidth="217.0" text="Nộp đơn" />
             <Button layoutX="19.0" layoutY="163.0" mnemonicParsing="false" onAction="#button_ds_MoiNhan" prefHeight="31.0" prefWidth="217.0" text="Danh sách đơn mới ghi nhận" />
             <Button layoutX="19.0" layoutY="208.0" mnemonicParsing="false" onAction="#button_ds_XuLi" text="Danh sách đơn đang chờ xử lí" />
