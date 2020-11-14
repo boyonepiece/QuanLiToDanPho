@@ -91,12 +91,11 @@ public class Database {
         Connection connection=getConnection();
         PreparedStatement preparedStatement=connection.prepareStatement(query);
         preparedStatement.setString(1,peopleID);
-        preparedStatement.setString(2,name);
+        preparedStatement.setNString(2,name);
         preparedStatement.setString(3,birthday);
         preparedStatement.setString(4,phoneNumber);
-        preparedStatement.setString(5,accommodation);
+        preparedStatement.setNString(5,accommodation);
         preparedStatement.executeUpdate();
-       /* connection.close();*/
     }
 
     public void createPetitionInDatabase(String peopleID,String content,String day,int quarterOfYear,String classify ,int state) throws SQLException{
@@ -104,13 +103,12 @@ public class Database {
         Connection connection=getConnection();
         PreparedStatement preparedStatement=connection.prepareStatement(query);
         preparedStatement.setString(1,peopleID);
-        preparedStatement.setString(2,content);
+        preparedStatement.setNString(2,content);
         preparedStatement.setString(3,day);
         preparedStatement.setInt(4,quarterOfYear);
-        preparedStatement.setString(5,classify);
+        preparedStatement.setNString(5,classify);
         preparedStatement.setInt(6,state);
         preparedStatement.executeUpdate();
-        connection.close();
     }
 
     public boolean checkUserExist(String peopleID) throws SQLException{
@@ -162,8 +160,7 @@ public class Database {
         var query="SELECT TEN,NOISONG,DIENTHOAI,DAY,PHANLOAI,NOIDUNG FROM DONPHANANH INNER JOIN NGUOIPHANANH" +
                 "ON DONPHANANH.CMT=NGUOIPHANANH.CMT WHERE TRANGTHAI=1 ORDER BY NGAY DESC";
         PreparedStatement pre=getConnection().prepareStatement(query);
-        ResultSet result=pre.executeQuery();
-        return result;
+        return pre.executeQuery();
     }
 
 
@@ -171,16 +168,14 @@ public class Database {
         var query="SELECT TEN,NOISONG,DIENTHOAI,DAY,PHANLOAI,NOIDUNG FROM DONPHANANH INNER JOIN NGUOIPHANANH" +
                 "ON DONPHANANH.CMT=NGUOIPHANANH.CMT WHERE TRANGTHAI=0 ORDER BY NGAY DESC";
         PreparedStatement pre=getConnection().prepareStatement(query);
-        ResultSet result=pre.executeQuery();
-        return result;
+        return pre.executeQuery();
     }
 
     public ResultSet getListNewPetition()throws SQLException{
         var query="SELECT TEN,NOISONG,DIENTHOAI,DAY,PHANLOAI,NOIDUNG FROM DONPHANANH INNER JOIN NGUOIPHANANH" +
                 "ON DONPHANANH.CMT=NGUOIPHANANH.CMT WHERE TRANGTHAI=-1 ORDER BY NGAY DESC";
         PreparedStatement pre=getConnection().prepareStatement(query);
-        ResultSet result=pre.executeQuery();
-        return result;
+        return pre.executeQuery();
     }
 
     public ResultSet getListPetitionForQuarterOfYear(int quarterOfYear) throws SQLException{
@@ -188,8 +183,7 @@ public class Database {
                 "ON DONPHANANH.CMT=NGUOIPHANANH.CMT WHERE QUY=? ORDER BY NGAY DESC";
         PreparedStatement pre=getConnection().prepareStatement(query);
         pre.setInt(1,quarterOfYear);
-        ResultSet result=pre.executeQuery();
-        return result;
+        return pre.executeQuery();
     }
 
     public ResultSet getListPetitionFromTheCondition(String name,String phoneNumber,String day,String classify,int state) throws SQLException{
@@ -198,7 +192,7 @@ public class Database {
                 "TEN=? AND DIENTHOAI=? AND NGAY=? AND PHANLOAI=? AND TRANGTHAI=?" +
                 " ORDER BY NGAY DESC";
         PreparedStatement pre=getConnection().prepareStatement(query);
-        pre.setString(1,name);
+        pre.setNString(1,name);
         pre.setString(2,phoneNumber);
         pre.setString(2,day);
         pre.setString(3,classify);
@@ -211,5 +205,16 @@ public class Database {
         pre.setString(1,peopleID);
         return pre.executeQuery();
     }
+
+//    public String getPeopleID(String phoneNumber) throws  SQLException{
+//        var query="SELECT CMT FROM NGUOIPHANANH WHERE DIENTHOAI=?";
+//        PreparedStatement pre=getConnection().prepareStatement(query);
+//        pre.setString(1,phoneNumber);
+//        ResultSet result=pre.executeQuery();
+//        if(result.next()) {
+//            return result.getString("CMT");
+//        }
+//        return null;
+//    }
 
 }
