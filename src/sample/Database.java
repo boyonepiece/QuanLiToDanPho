@@ -1,4 +1,4 @@
-package DatabasePractice;
+package sample;
 import java.sql.*;
 
 
