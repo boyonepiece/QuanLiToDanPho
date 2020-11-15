@@ -156,8 +156,7 @@ public class Database {
 
 
     public void changeStatePetition(String name,String phoneNumber,int state) throws SQLException{
-        var query="UPDATE DONPHANH SET TRANGTHAI=? WHERE CMT IN(SELECT CMT FROM NGUOIPHANANH WHERE" +
-                "TEN=? AND DIENTHOAI=?)";
+        var query="UPDATE DONPHANANH SET TRANGTHAI=? WHERE CMT IN(SELECT CMT FROM NGUOIPHANANH WHERE TEN=? AND DIENTHOAI=?)";
         PreparedStatement preparedStatement=getConnection().prepareStatement(query);
         preparedStatement.setInt(1,state);
         preparedStatement.setNString(2,name);
@@ -170,39 +169,44 @@ public class Database {
      */
 
     public ResultSet getListPetitionResolved() throws SQLException{
-        var query="SELECT TEN,NOISONG,DIENTHOAI,DAY,PHANLOAI,NOIDUNG FROM DONPHANANH INNER JOIN NGUOIPHANANH" +
-                "ON DONPHANANH.CMT=NGUOIPHANANH.CMT WHERE TRANGTHAI=1 ORDER BY NGAY DESC";
+        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG " +
+                "FROM DONPHANANH INNER JOIN NGUOIPHANANH ON DONPHANANH.CMT=NGUOIPHANANH.CMT" +
+                " WHERE TRANGTHAI=1 ORDER BY NGAY DESC";
         PreparedStatement pre=getConnection().prepareStatement(query);
         return pre.executeQuery();
     }
 
 
     public ResultSet getListPetitionUnsolved()throws SQLException{
-        var query="SELECT TEN,NOISONG,DIENTHOAI,DAY,PHANLOAI,NOIDUNG FROM DONPHANANH INNER JOIN NGUOIPHANANH" +
-                "ON DONPHANANH.CMT=NGUOIPHANANH.CMT WHERE TRANGTHAI=0 ORDER BY NGAY DESC";
+        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG" +
+                " FROM DONPHANANH INNER JOIN NGUOIPHANANH ON DONPHANANH.CMT=NGUOIPHANANH.CMT" +
+                " WHERE TRANGTHAI=0 ORDER BY NGAY DESC";
         PreparedStatement pre=getConnection().prepareStatement(query);
         return pre.executeQuery();
     }
 
     public ResultSet getListNewPetition()throws SQLException{
-        var query="SELECT TEN,NOISONG,DIENTHOAI,DAY,PHANLOAI,NOIDUNG FROM DONPHANANH INNER JOIN NGUOIPHANANH" +
-                "ON DONPHANANH.CMT=NGUOIPHANANH.CMT WHERE TRANGTHAI=-1 ORDER BY NGAY DESC";
-        PreparedStatement pre=getConnection().prepareStatement(query);
+        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG " +
+                "FROM DONPHANANH INNER JOIN NGUOIPHANANH ON DONPHANANH.CMT=NGUOIPHANANH.CMT" +
+                " WHERE TRANGTHAI=-1 ORDER BY NGAY DESC";
+        Connection connection=getConnection();
+        PreparedStatement pre=connection.prepareStatement(query);
         return pre.executeQuery();
     }
 
     public ResultSet getListPetitionForQuarterOfYear(int quarterOfYear) throws SQLException{
-        var query="SELECT TEN,NOISONG,DIENTHOAI,DAY,PHANLOAI,NOIDUNG FROM DONPHANANH INNER JOIN NGUOIPHANANH" +
-                "ON DONPHANANH.CMT=NGUOIPHANANH.CMT WHERE QUY=? ORDER BY NGAY DESC";
+        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG " +
+                "FROM DONPHANANH INNER JOIN NGUOIPHANANH ON DONPHANANH.CMT=NGUOIPHANANH.CMT" +
+                " WHERE QUY=? ORDER BY NGAY DESC";
         PreparedStatement pre=getConnection().prepareStatement(query);
         pre.setInt(1,quarterOfYear);
         return pre.executeQuery();
     }
 
     public ResultSet getListPetitionFromTheCondition(String name,String phoneNumber,String day,String classify,int state) throws SQLException{
-        var query="SELECT TEN,NOISONG,DIENTHOAI,DAY,PHANLOAI,NOIDUNG FROM DONPHANANH INNER JOIN NGUOIPHANANH" +
-                "ON DONPHANANH.CMT=NGUOIPHANANH.CMT WHERE " +
-                "TEN=? AND DIENTHOAI=? AND NGAY=? AND PHANLOAI=? AND TRANGTHAI=?" +
+        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG" +
+                " FROM DONPHANANH INNER JOIN NGUOIPHANANH ON DONPHANANH.CMT=NGUOIPHANANH.CMT" +
+                " WHERE TEN=? AND DIENTHOAI=? AND NGAY=? AND PHANLOAI=? AND TRANGTHAI=?" +
                 " ORDER BY NGAY DESC";
         PreparedStatement pre=getConnection().prepareStatement(query);
         pre.setNString(1,name);
@@ -217,11 +221,12 @@ public class Database {
         if(id==null){
             return null;
         }
-        if(new HashID().checkPeopleIDExist(peopleID,id)==false){
+        if(!new HashID().checkPeopleIDExist(peopleID, id)){
             return null;
         }
-        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG FROM NGUOIPHANANH INNER JOIN DONPHANANH " +
-                "ON NGUOIPHANANH.CMT=DONPHANANH.CMT WHERE NGUOIPHANANH.CMT=?";
+        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG " +
+                "FROM NGUOIPHANANH INNER JOIN DONPHANANH ON NGUOIPHANANH.CMT=DONPHANANH.CMT" +
+                " WHERE NGUOIPHANANH.CMT=?";
         PreparedStatement pre=getConnection().prepareStatement(query);
         pre.setString(1,id);
         return pre.executeQuery();
