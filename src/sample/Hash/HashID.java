@@ -22,17 +22,16 @@ public class HashID {
         this.workload=newWordLoad;
     }
 
-    public boolean checkPeopleIDExist(String peopleID,String phoneNumber) throws SQLException {
-        String stored_hash=new Database().getPeopleID(phoneNumber);
-        if(stored_hash==null){
+    public boolean checkPeopleIDExist(String peopleID,String peopleIDHash) throws SQLException {
+        if(peopleIDHash==null){
             return false;
         }
         boolean peopleIDVerified = false;
 
-        if(null == stored_hash || !stored_hash.startsWith("$2a$"))
+        if(null == peopleIDHash || !peopleIDHash.startsWith("$2a$"))
             throw new java.lang.IllegalArgumentException("Invalid hash provided for comparison");
 
-        peopleIDVerified = BCrypt.checkpw(peopleID, stored_hash);
+        peopleIDVerified = BCrypt.checkpw(peopleID, peopleIDHash);
 
         return peopleIDVerified;
     }
