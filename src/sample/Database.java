@@ -212,7 +212,7 @@ public class Database {
         pre.setNString(1,name);
         pre.setString(2,phoneNumber);
         pre.setString(2,day);
-        pre.setString(3,classify);
+        pre.setNString(3,classify);
         pre.setInt(4,state);
         return pre.executeQuery();
     }
@@ -230,6 +230,59 @@ public class Database {
         PreparedStatement pre=getConnection().prepareStatement(query);
         pre.setString(1,id);
         return pre.executeQuery();
+    }
+
+    /*
+     * DELETE PETITION FROM DATABASE
+     * */
+    public int countPetitionForUser(String name,String phoneNumber)throws SQLException{
+        var query="SELECT COUNT(ID_DON) FROM DONPHANANH " +
+                "WHERE CMT IN " +
+                "(SELECT CMT FROM NGUOIPHANANH WHERE TEN=? AND DIENTHOAI=?)";
+        PreparedStatement preparedStatement=getConnection().prepareStatement(query);
+        preparedStatement.setNString(1,name);
+        preparedStatement.setString(2,phoneNumber);
+        ResultSet resultSet=preparedStatement.executeQuery();
+        if(resultSet.next())
+            return resultSet.getInt(1);
+        return 0;
+
+
+    }
+
+    public void deleteUser(String peopleID) throws SQLException{
+        var query="DELETE FROM NGUOIPHANANH WHERE CMT=?";
+        PreparedStatement pre1=getConnection().prepareStatement(query);
+        pre1.setString(1,peopleID);
+        pre1.executeUpdate();
+    }
+
+    public void removePetition(String peopleID,String day,String classify,int state) throws SQLException{
+        var query="DELETE FROM DONPHANANH WHERE CMT=? AND NGAY=? AND PHANLOAI=? AND TRANGTHAI=?";
+        PreparedStatement pre2=getConnection().prepareStatement(query);
+        pre2.setString(1,peopleID);
+        pre2.setString(2,day);
+        pre2.setString(3,classify);
+        pre2.setInt(4,state);
+        pre2.executeUpdate();
+    }
+
+    public void deletePetitionFromDatabase(String name,String phoneNumber,String day,String classify,int state)throws SQLException{
+        int countPetition=countPetitionForUser(name,phoneNumber);
+        if(countPetition==0){
+            System.out.println("No row is matching with parameter");
+            return;
+        }
+
+        String peopleID=getPeopleID(phoneNumber);
+        if(countPetition==1){
+            removePetition(peopleID,day,classify,state);
+            deleteUser(peopleID);
+            return;
+        }
+
+        //else count>=2
+        removePetition(peopleID,day,classify,state);
     }
 
 }
