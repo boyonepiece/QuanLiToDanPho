@@ -1,6 +1,5 @@
 package sample.Controller;
 
-import com.sun.javafx.css.*;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
@@ -28,6 +27,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import sample.Database;
 
 public class Controller {
     @FXML
@@ -38,12 +38,19 @@ public class Controller {
     @FXML
     private Text target;
 
+    private Database db = new Database();
 
     //nhấn nút đăng nhập
     public void enter(ActionEvent event) throws IOException {
         try {
-            if (Matkhau.getText().equals("aa")) setSceneHome(event); //kiểm tra mật khẩu đơn giản
-            else this.target.setVisible(true);                              //nếu mật khẩu sai hiển thị báo lỗi
+            String account = Taikhoan.getText();
+            String password = Matkhau.getText();
+            if(db.checkLogin(account, password)){
+                setSceneHome(event);
+            }
+            else this.target.setVisible(true);
+            //if (Matkhau.getText().equals("aa")) setSceneHome(event); //kiểm tra mật khẩu đơn giản
+            //else this.target.setVisible(true);                              //nếu mật khẩu sai hiển thị báo lỗi
         }
         catch (Exception e){
             e.printStackTrace();

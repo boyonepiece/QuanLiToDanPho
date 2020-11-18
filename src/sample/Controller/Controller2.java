@@ -307,7 +307,7 @@ public class Controller2 {
         allDon.setText(String.valueOf(size));
         return list1;
     }
-
+    
     public void initialize(){
         selectAllDonNop.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
