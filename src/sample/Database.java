@@ -1,4 +1,6 @@
 package sample;
+import sample.Hash.HashID;
+
 import java.sql.*;
 
 
@@ -13,7 +15,7 @@ public class Database {
         this.driveName="com.microsoft.sqlserver.jdbc.SQLServerDriver";
         this.url="jdbc:sqlserver://localhost:1433;databaseName=QUANLYTODANPHO";
         this.username="sa";
-        this.password="09042000";
+        this.password="23571113";
         this.connection=createConnection();
     }
     public Connection createConnection(){
@@ -75,6 +77,8 @@ public class Database {
     public boolean checkLogin(String username,String password)throws SQLException{
         var query="SELECT * FROM TOTRUONG WHERE USENAME=? AND PASSWORD=?";
         PreparedStatement preparedStatement=getConnection().prepareStatement(query);
+        preparedStatement.setString(1,username);
+        preparedStatement.setString(2,password);
         ResultSet result=preparedStatement.executeQuery();
         if(result.next()){
             return true;
@@ -111,24 +115,33 @@ public class Database {
         preparedStatement.executeUpdate();
     }
 
-    public boolean checkUserExist(String peopleID) throws SQLException{
-        var query="SELECT * FROM NGUOIPHANANH WHERE CMT=?";
-        PreparedStatement preparedStatement=getConnection().prepareStatement(query);
-        preparedStatement.setString(1,peopleID);
-        ResultSet result=preparedStatement.executeQuery();
-        if(result.next()){
-            return true;
+    public String getPeopleID(String phoneNumber) throws  SQLException{
+        var query="SELECT CMT FROM NGUOIPHANANH WHERE DIENTHOAI=?";
+        PreparedStatement pre=getConnection().prepareStatement(query);
+        pre.setString(1,phoneNumber);
+        ResultSet result=pre.executeQuery();
+        if(result.next()) {
+            return result.getString("CMT");
         }
-        return false;
+        return null;
     }
+
     public void insertPetitionIntoDatabase(String peopleID,String name, String birthday,String phoneNumber,String accommodation,
                                            String content,String day,int quarterOfYear,String classify ,int state) throws SQLException{
-        if(checkUserExist(peopleID)) {
-            createPetitionInDatabase(peopleID,content,day,quarterOfYear,classify,state);
+        HashID hashId=new HashID();
+        String id=getPeopleID(phoneNumber);
+        if(id!=null) {//if user exist in database
+            if(hashId.checkPeopleIDExist(peopleID,id)==false){
+                System.out.println("Typing incorrect,The phone number is used");
+                return;
+            }
+            createPetitionInDatabase(id,content,day,quarterOfYear,classify,state);
             return;
         }
-        insertUser(peopleID,name,birthday,phoneNumber,accommodation);
-        createPetitionInDatabase(peopleID,content,day,quarterOfYear,classify,state);
+        // not exist
+        String newID= hashId.hash(peopleID);
+        insertUser(newID,name,birthday,phoneNumber,accommodation);
+        createPetitionInDatabase(newID,content,day,quarterOfYear,classify,state);
     }
 
 
@@ -143,11 +156,10 @@ public class Database {
 
 
     public void changeStatePetition(String name,String phoneNumber,int state) throws SQLException{
-        var query="UPDATE DONPHANH SET TRANGTHAI=? WHERE CMT IN(SELECT CMT FROM NGUOIPHANANH WHERE" +
-                "TEN=? AND DIENTHOAI=?)";
+        var query="UPDATE DONPHANANH SET TRANGTHAI=? WHERE CMT IN(SELECT CMT FROM NGUOIPHANANH WHERE TEN=? AND DIENTHOAI=?)";
         PreparedStatement preparedStatement=getConnection().prepareStatement(query);
         preparedStatement.setInt(1,state);
-        preparedStatement.setString(2,name);
+        preparedStatement.setNString(2,name);
         preparedStatement.setString(3,phoneNumber);
         preparedStatement.executeUpdate();
     }
@@ -157,64 +169,120 @@ public class Database {
      */
 
     public ResultSet getListPetitionResolved() throws SQLException{
-        var query="SELECT TEN,NOISONG,DIENTHOAI,DAY,PHANLOAI,NOIDUNG FROM DONPHANANH INNER JOIN NGUOIPHANANH" +
-                "ON DONPHANANH.CMT=NGUOIPHANANH.CMT WHERE TRANGTHAI=1 ORDER BY NGAY DESC";
+        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG " +
+                "FROM DONPHANANH INNER JOIN NGUOIPHANANH ON DONPHANANH.CMT=NGUOIPHANANH.CMT" +
+                " WHERE TRANGTHAI=1 ORDER BY NGAY DESC";
         PreparedStatement pre=getConnection().prepareStatement(query);
         return pre.executeQuery();
     }
 
 
     public ResultSet getListPetitionUnsolved()throws SQLException{
-        var query="SELECT TEN,NOISONG,DIENTHOAI,DAY,PHANLOAI,NOIDUNG FROM DONPHANANH INNER JOIN NGUOIPHANANH" +
-                "ON DONPHANANH.CMT=NGUOIPHANANH.CMT WHERE TRANGTHAI=0 ORDER BY NGAY DESC";
+        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG" +
+                " FROM DONPHANANH INNER JOIN NGUOIPHANANH ON DONPHANANH.CMT=NGUOIPHANANH.CMT" +
+                " WHERE TRANGTHAI=0 ORDER BY NGAY DESC";
         PreparedStatement pre=getConnection().prepareStatement(query);
         return pre.executeQuery();
     }
 
     public ResultSet getListNewPetition()throws SQLException{
-        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG FROM DONPHANANH INNER JOIN NGUOIPHANANH ON DONPHANANH.CMT=NGUOIPHANANH.CMT WHERE TRANGTHAI=-1 ORDER BY NGAY DESC";
+        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG " +
+                "FROM DONPHANANH INNER JOIN NGUOIPHANANH ON DONPHANANH.CMT=NGUOIPHANANH.CMT" +
+                " WHERE TRANGTHAI=-1 ORDER BY NGAY DESC";
         Connection connection=getConnection();
         PreparedStatement pre=connection.prepareStatement(query);
         return pre.executeQuery();
     }
 
     public ResultSet getListPetitionForQuarterOfYear(int quarterOfYear) throws SQLException{
-        var query="SELECT TEN,NOISONG,DIENTHOAI,DAY,PHANLOAI,NOIDUNG FROM DONPHANANH INNER JOIN NGUOIPHANANH" +
-                "ON DONPHANANH.CMT=NGUOIPHANANH.CMT WHERE QUY=? ORDER BY NGAY DESC";
+        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG " +
+                "FROM DONPHANANH INNER JOIN NGUOIPHANANH ON DONPHANANH.CMT=NGUOIPHANANH.CMT" +
+                " WHERE QUY=? ORDER BY NGAY DESC";
         PreparedStatement pre=getConnection().prepareStatement(query);
         pre.setInt(1,quarterOfYear);
         return pre.executeQuery();
     }
 
     public ResultSet getListPetitionFromTheCondition(String name,String phoneNumber,String day,String classify,int state) throws SQLException{
-        var query="SELECT TEN,NOISONG,DIENTHOAI,DAY,PHANLOAI,NOIDUNG FROM DONPHANANH INNER JOIN NGUOIPHANANH" +
-                "ON DONPHANANH.CMT=NGUOIPHANANH.CMT WHERE " +
-                "TEN=? AND DIENTHOAI=? AND NGAY=? AND PHANLOAI=? AND TRANGTHAI=?" +
+        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG" +
+                " FROM DONPHANANH INNER JOIN NGUOIPHANANH ON DONPHANANH.CMT=NGUOIPHANANH.CMT" +
+                " WHERE TEN=? AND DIENTHOAI=? AND NGAY=? AND PHANLOAI=? AND TRANGTHAI=?" +
                 " ORDER BY NGAY DESC";
         PreparedStatement pre=getConnection().prepareStatement(query);
         pre.setNString(1,name);
         pre.setString(2,phoneNumber);
         pre.setString(2,day);
-        pre.setString(3,classify);
+        pre.setNString(3,classify);
         pre.setInt(4,state);
         return pre.executeQuery();
     }
-    public ResultSet getListPetitionFromPeopleID(String peopleID) throws SQLException{
-        var query="SELECT TEN,NOISONG,DIENTHOAI,DAY,PHANLOAI,NOIDUNG FROM DONPHANANH WHERE CMT=?";
+    public ResultSet getListPetitionFromPeopleIDAndPhoneNumber(String peopleID,String phoneNumber) throws SQLException{
+        String id=getPeopleID(phoneNumber);
+        if(id==null){
+            return null;
+        }
+        if(!new HashID().checkPeopleIDExist(peopleID, id)){
+            return null;
+        }
+        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG " +
+                "FROM NGUOIPHANANH INNER JOIN DONPHANANH ON NGUOIPHANANH.CMT=DONPHANANH.CMT" +
+                " WHERE NGUOIPHANANH.CMT=?";
         PreparedStatement pre=getConnection().prepareStatement(query);
-        pre.setString(1,peopleID);
+        pre.setString(1,id);
         return pre.executeQuery();
     }
 
-//    public String getPeopleID(String phoneNumber) throws  SQLException{
-//        var query="SELECT CMT FROM NGUOIPHANANH WHERE DIENTHOAI=?";
-//        PreparedStatement pre=getConnection().prepareStatement(query);
-//        pre.setString(1,phoneNumber);
-//        ResultSet result=pre.executeQuery();
-//        if(result.next()) {
-//            return result.getString("CMT");
-//        }
-//        return null;
-//    }
+    /*
+     * DELETE PETITION FROM DATABASE
+     * */
+    public int countPetitionForUser(String name,String phoneNumber)throws SQLException{
+        var query="SELECT COUNT(ID_DON) FROM DONPHANANH " +
+                "WHERE CMT IN " +
+                "(SELECT CMT FROM NGUOIPHANANH WHERE TEN=? AND DIENTHOAI=?)";
+        PreparedStatement preparedStatement=getConnection().prepareStatement(query);
+        preparedStatement.setNString(1,name);
+        preparedStatement.setString(2,phoneNumber);
+        ResultSet resultSet=preparedStatement.executeQuery();
+        if(resultSet.next())
+            return resultSet.getInt(1);
+        return 0;
+
+
+    }
+
+    public void deleteUser(String peopleID) throws SQLException{
+        var query="DELETE FROM NGUOIPHANANH WHERE CMT=?";
+        PreparedStatement pre1=getConnection().prepareStatement(query);
+        pre1.setString(1,peopleID);
+        pre1.executeUpdate();
+    }
+
+    public void removePetition(String peopleID,String day,String classify,int state) throws SQLException{
+        var query="DELETE FROM DONPHANANH WHERE CMT=? AND NGAY=? AND PHANLOAI=? AND TRANGTHAI=?";
+        PreparedStatement pre2=getConnection().prepareStatement(query);
+        pre2.setString(1,peopleID);
+        pre2.setString(2,day);
+        pre2.setString(3,classify);
+        pre2.setInt(4,state);
+        pre2.executeUpdate();
+    }
+
+    public void deletePetitionFromDatabase(String name,String phoneNumber,String day,String classify,int state)throws SQLException{
+        int countPetition=countPetitionForUser(name,phoneNumber);
+        if(countPetition==0){
+            System.out.println("No row is matching with parameter");
+            return;
+        }
+
+        String peopleID=getPeopleID(phoneNumber);
+        if(countPetition==1){
+            removePetition(peopleID,day,classify,state);
+            deleteUser(peopleID);
+            return;
+        }
+
+        //else count>=2
+        removePetition(peopleID,day,classify,state);
+    }
 
 }
