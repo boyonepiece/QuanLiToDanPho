@@ -1,25 +1,36 @@
 package sample.Controller;
 
 import javafx.application.Platform;
+import javafx.beans.Observable;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
+import javafx.util.Callback;
 import sample.Database;
+import sample.Entity.DonPhanAnh;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Controller2 {
@@ -44,6 +55,20 @@ public class Controller2 {
     private RadioButton radioAnNinh,radioCoSo,radioQuyDinh,radioKhac;
     @FXML
     private DatePicker ngaySinh,ngayNop,ngayNop2;
+    @FXML
+    private TableColumn<DonPhanAnh,String> colName,
+            colAddress,colPhone,colDate,colClassify,colNoiDung;
+    @FXML
+    private TableColumn<DonPhanAnh,Boolean>colState;
+    @FXML
+    private TableColumn<DonPhanAnh,Integer> colSTT;
+    @FXML
+    private TableView tableNewList;
+    @FXML
+    private Label allDon;
+    @FXML
+    private CheckBox selectAllDonNop;
+
 
     //
     @FXML
@@ -74,12 +99,14 @@ public class Controller2 {
     }
 
     //button danh sách các đơn mới ghi nhận
-    public void button_ds_MoiNhan(ActionEvent e){
+    public void button_ds_MoiNhan(ActionEvent e) throws SQLException {
         this.donNop.setVisible(false);
         this.ds_MoiNhan.setVisible(true);
         this.ds_XuLi.setVisible(false);
         this.timKiem.setVisible(false);
         this.thongKe_Quy.setVisible(false);
+
+        donMoiGhiNhan();
     }
 
     //button danh sách đơn đang xử lí
@@ -203,7 +230,7 @@ public class Controller2 {
 
             showAlter();
         }
-
+        database = null;
 
 
     }
@@ -222,5 +249,82 @@ public class Controller2 {
         Node noInfo = list.get(list.size()-2);
         hasInfo.setVisible(false);
         noInfo.setVisible(true);
+    }
+
+    public void donMoiGhiNhan(/*ObservableList<DonPhanAnh> list*/) throws SQLException {
+
+
+        colSTT.setCellValueFactory(new PropertyValueFactory<>("stt"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colPhone.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        colClassify.setCellValueFactory(new PropertyValueFactory<>("classify"));
+        colNoiDung.setCellValueFactory(new PropertyValueFactory<>("chiTiet"));
+
+
+        colState.setCellValueFactory(new PropertyValueFactory<>("remark"));
+        ObservableList<DonPhanAnh> list = getList();
+/*
+        colState.setCellFactory(new Callback<TableColumn<DonPhanAnh, Boolean>, TableCell<DonPhanAnh, Boolean>>() {
+            @Override
+            public TableCell<DonPhanAnh, Boolean> call(TableColumn<DonPhanAnh, Boolean> donPhanAnhBooleanTableColumn) {
+                CheckBoxTableCell<DonPhanAnh,Boolean> cell = new CheckBoxTableCell<DonPhanAnh,Boolean>();
+                cell.setAlignment(Pos.CENTER);
+                return cell;
+            }
+        });*/
+
+
+
+        tableNewList.setItems(list);
+
+
+    }
+    public ObservableList<DonPhanAnh> getList() throws SQLException {
+        Database database = new Database();
+        ResultSet newPetition = database.getListNewPetition();
+        ArrayList<DonPhanAnh> list = new ArrayList<DonPhanAnh>();
+        int i=0;
+        while(newPetition.next()){
+            DonPhanAnh donPhanAnh;
+            String name = newPetition.getString("TEN");
+            String address = newPetition.getString("NOISONG");
+            String phone = newPetition.getString("DIENTHOAI");
+            String day = newPetition.getString("NGAY");
+            String classify = newPetition.getString("PHANLOAI");
+            String noiDung = newPetition.getString("NOIDUNG");
+            donPhanAnh = new DonPhanAnh(name,address,phone,day,
+                    classify,noiDung,i+1,false);
+            list.add(donPhanAnh);
+            i++;
+        }
+        ObservableList<DonPhanAnh> list1 = FXCollections.observableArrayList();
+        int size = list.size();
+        for(int k=0;k<size;k++){
+            list1.add(list.get(k));
+        }
+        allDon.setText(String.valueOf(size));
+        return list1;
+    }
+
+    public void initialize(){
+        selectAllDonNop.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                ObservableList<DonPhanAnh> items = tableNewList.getItems();
+                for(DonPhanAnh a :items){
+                    if(selectAllDonNop.isSelected()){
+                        a.getRemark().setSelected(true);
+                    }
+                    else{
+                        a.getRemark().setSelected(false);
+                    }
+                }
+            }
+        });
+    }
+
+    public void luuChange(ActionEvent actionEvent) {
     }
 }

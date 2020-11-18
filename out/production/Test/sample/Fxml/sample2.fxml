@@ -2,6 +2,7 @@
 
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -65,7 +66,7 @@
                </font>
             </Label>
             <Separator layoutX="235.0" layoutY="86.0" orientation="VERTICAL" prefHeight="777.0" prefWidth="10.0" />
-            <ScrollPane fx:id="donNop" hbarPolicy="NEVER" layoutX="413.0" layoutY="105.0" prefHeight="693.0" prefWidth="738.0">
+            <ScrollPane fx:id="donNop" hbarPolicy="NEVER" layoutX="413.0" layoutY="105.0" prefHeight="693.0" prefWidth="738.0" visible="false">
                <content>
                   <AnchorPane prefHeight="687.0" prefWidth="720.0">
                      <children>
@@ -132,23 +133,23 @@
             <Button layoutX="19.0" layoutY="208.0" mnemonicParsing="false" onAction="#button_ds_XuLi" text="Danh sách đơn đang chờ xử lí" />
             <Button layoutX="19.0" layoutY="253.0" mnemonicParsing="false" onAction="#button_timKiem" prefHeight="31.0" prefWidth="217.0" text="Tìm kiếm" />
             <Button layoutX="1556.0" layoutY="26.0" mnemonicParsing="false" onAction="#pressButtonHome" text="Trang chủ" />
-            <AnchorPane fx:id="ds_MoiNhan" layoutX="265.0" layoutY="114.0" prefHeight="722.0" prefWidth="1400.0" visible="false">
+            <AnchorPane fx:id="ds_MoiNhan" layoutX="265.0" layoutY="114.0" prefHeight="722.0" prefWidth="1400.0">
                <children>
                   <Label layoutX="57.0" layoutY="21.0" text="Danh sách đơn mới ghi nhận">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TableView layoutX="31.0" layoutY="80.0" prefHeight="616.0" prefWidth="1343.0">
+                  <TableView fx:id="tableNewList" editable="true" layoutX="-19.0" layoutY="80.0" prefHeight="527.0" prefWidth="1343.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="STT" />
-                      <TableColumn prefWidth="208.0" text="Họ tên" />
-                        <TableColumn prefWidth="84.0" text="Số nhà" />
-                        <TableColumn prefWidth="144.0" text="SĐT" />
-                        <TableColumn prefWidth="193.0" text="Ngày nhận đơn" />
-                        <TableColumn prefWidth="213.0" text="Nội dung phản ánh" />
-                        <TableColumn prefWidth="268.0" text="Chi tiết" />
-                        <TableColumn prefWidth="157.0" text="Trạng thái" />
+                      <TableColumn fx:id="colSTT" prefWidth="75.0" text="STT" />
+                      <TableColumn fx:id="colName" prefWidth="208.0" text="Họ tên" />
+                        <TableColumn fx:id="colAddress" prefWidth="84.0" text="Địa chỉ" />
+                        <TableColumn fx:id="colPhone" prefWidth="144.0" text="SĐT" />
+                        <TableColumn fx:id="colDate" prefWidth="193.0" text="Ngày nhận đơn" />
+                        <TableColumn fx:id="colClassify" prefWidth="205.59991455078125" text="Loại phản ánh" />
+                        <TableColumn fx:id="colNoiDung" prefWidth="277.60009765625" text="Chi tiết" />
+                        <TableColumn fx:id="colState" prefWidth="157.0" text="Xác nhận" />
                     </columns>
                   </TableView>
                   <Label layoutX="1173.0" layoutY="43.0" prefHeight="21.0" prefWidth="71.0" text="Tổng số: ">
@@ -156,8 +157,14 @@
                         <Font size="17.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER_RIGHT" layoutX="1244.0" layoutY="46.0" prefHeight="21.0" prefWidth="24.0" text="0" />
+                  <Label fx:id="allDon" alignment="CENTER_RIGHT" layoutX="1244.0" layoutY="46.0" prefHeight="21.0" prefWidth="24.0" text="0" />
                   <Label layoutX="1277.0" layoutY="46.0" text="đơn" />
+                  <Button layoutX="500.0" layoutY="638.0" mnemonicParsing="false" onAction="#luuChange" prefHeight="36.0" prefWidth="107.0" text="Lưu thay đổi">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <CheckBox fx:id="selectAllDonNop" layoutX="1215.0" layoutY="647.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="82.0" text="Chọn tất" />
                </children>
             </AnchorPane>
             <Button layoutX="19.0" layoutY="293.0" mnemonicParsing="false" onAction="#button_thongKe_Quy" prefHeight="31.0" prefWidth="217.0" text="Thống kê của quý" />

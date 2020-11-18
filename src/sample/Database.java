@@ -172,9 +172,9 @@ public class Database {
     }
 
     public ResultSet getListNewPetition()throws SQLException{
-        var query="SELECT TEN,NOISONG,DIENTHOAI,DAY,PHANLOAI,NOIDUNG FROM DONPHANANH INNER JOIN NGUOIPHANANH" +
-                "ON DONPHANANH.CMT=NGUOIPHANANH.CMT WHERE TRANGTHAI=-1 ORDER BY NGAY DESC";
-        PreparedStatement pre=getConnection().prepareStatement(query);
+        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG FROM DONPHANANH INNER JOIN NGUOIPHANANH ON DONPHANANH.CMT=NGUOIPHANANH.CMT WHERE TRANGTHAI=-1 ORDER BY NGAY DESC";
+        Connection connection=getConnection();
+        PreparedStatement pre=connection.prepareStatement(query);
         return pre.executeQuery();
     }
 
