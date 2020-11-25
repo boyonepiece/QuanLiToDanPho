@@ -1,37 +1,29 @@
 package sample.Controller;
 
 import javafx.application.Platform;
-import javafx.beans.Observable;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import javafx.event.ActionEvent;
-import javafx.util.Callback;
 import sample.Database;
 import sample.Entity.DonPhanAnh;
 
 import java.io.IOException;
-import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 public class Controller2 {
 
@@ -160,7 +152,7 @@ public class Controller2 {
     public void pressButtonHome(ActionEvent e) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../Fxml/sample1.fxml"));
         Stage window = (Stage)((Node) e.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root,1700,900);
+        Scene scene = new Scene(root,1529,900);
         //window.getIcons().add(new Image(getClass().getResourceAsStream("../book.png")));
         window.setTitle("Quản lý thông tin tổ dân phố");
         window.setScene(scene);
@@ -250,6 +242,7 @@ public class Controller2 {
         hasInfo.setVisible(false);
         noInfo.setVisible(true);
     }
+    ObservableList<DonPhanAnh> list;
 
     public void donMoiGhiNhan(/*ObservableList<DonPhanAnh> list*/) throws SQLException {
 
@@ -264,22 +257,9 @@ public class Controller2 {
 
 
         colState.setCellValueFactory(new PropertyValueFactory<>("remark"));
-        ObservableList<DonPhanAnh> list = getList();
-/*
-        colState.setCellFactory(new Callback<TableColumn<DonPhanAnh, Boolean>, TableCell<DonPhanAnh, Boolean>>() {
-            @Override
-            public TableCell<DonPhanAnh, Boolean> call(TableColumn<DonPhanAnh, Boolean> donPhanAnhBooleanTableColumn) {
-                CheckBoxTableCell<DonPhanAnh,Boolean> cell = new CheckBoxTableCell<DonPhanAnh,Boolean>();
-                cell.setAlignment(Pos.CENTER);
-                return cell;
-            }
-        });*/
-
-
+        list = getList();
 
         tableNewList.setItems(list);
-
-
     }
     public ObservableList<DonPhanAnh> getList() throws SQLException {
         Database database = new Database();
@@ -326,5 +306,23 @@ public class Controller2 {
     }
 
     public void luuChange(ActionEvent actionEvent) {
+        Database database = new Database();
+        for(DonPhanAnh donPhanAnh : list){
+            if(donPhanAnh.getRemark().isSelected()){
+                database.changeStatePetition();
+
+            }
+        }
+    }
+
+    public void delete(ActionEvent actionEvent) throws SQLException {
+        Database database = new Database();
+        for(DonPhanAnh donPhanAnh : list){
+            if(donPhanAnh.getRemark().isSelected()){
+                database.deletePetitionFromDatabase(donPhanAnh.getName(),donPhanAnh.getPhoneNumber(),
+                        donPhanAnh.getDate(),donPhanAnh.getClassify());
+
+            }
+        }
     }
 }

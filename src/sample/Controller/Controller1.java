@@ -1,6 +1,7 @@
 package sample.Controller;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -11,9 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import javafx.event.ActionEvent;
-
-import java.awt.*;
 import java.io.IOException;
 
 public class Controller1 {
@@ -68,7 +66,7 @@ public class Controller1 {
     public void pressButton6(ActionEvent e) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../Fxml/sample2.fxml"));
         Stage window = (Stage)((Node) e.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root,1500,900);
+        Scene scene = new Scene(root,1529,900);
         //window.getIcons().add(new Image(getClass().getResourceAsStream("../book.png")));
         window.setTitle("Quản lý thông tin tổ dân phố");
         window.setX(0);

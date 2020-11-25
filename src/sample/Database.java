@@ -13,9 +13,9 @@ public class Database {
 
     public Database(){
         this.driveName="com.microsoft.sqlserver.jdbc.SQLServerDriver";
-        this.url="jdbc:sqlserver://localhost:1433;databaseName=QUANLYTODANPHO";
+        this.url="jdbc:sqlserver://localhost:1214;databaseName=QUANLYTODANPHO";
         this.username="sa";
-        this.password="20102000";
+        this.password="123456";
         this.connection=createConnection();
     }
     public Connection createConnection(){
@@ -155,12 +155,14 @@ public class Database {
      * */
 
 
-    public void changeStatePetition(String name,String phoneNumber,int state) throws SQLException{
-        var query="UPDATE DONPHANANH SET TRANGTHAI=? WHERE CMT IN(SELECT CMT FROM NGUOIPHANANH WHERE TEN=? AND DIENTHOAI=?)";
+    public void changeStatePetition(String name,String phoneNumber,String day,int state) throws SQLException{
+
+        var query="UPDATE DONPHANANH SET TRANGTHAI=? WHERE CMT IN(SELECT CMT FROM DONPHANANH WHERE TEN=? AND DIENTHOAI=?) AND NGAY=?";
         PreparedStatement preparedStatement=getConnection().prepareStatement(query);
         preparedStatement.setInt(1,state);
         preparedStatement.setNString(2,name);
         preparedStatement.setString(3,phoneNumber);
+        preparedStatement.setString(4,day);
         preparedStatement.executeUpdate();
     }
 
@@ -257,17 +259,16 @@ public class Database {
         pre1.executeUpdate();
     }
 
-    public void removePetition(String peopleID,String day,String classify,int state) throws SQLException{
-        var query="DELETE FROM DONPHANANH WHERE CMT=? AND NGAY=? AND PHANLOAI=? AND TRANGTHAI=?";
+    public void removePetition(String peopleID,String day,String classify) throws SQLException{
+        var query="DELETE FROM DONPHANANH WHERE CMT=? AND NGAY=? AND PHANLOAI=?";
         PreparedStatement pre2=getConnection().prepareStatement(query);
         pre2.setString(1,peopleID);
         pre2.setString(2,day);
         pre2.setString(3,classify);
-        pre2.setInt(4,state);
         pre2.executeUpdate();
     }
 
-    public void deletePetitionFromDatabase(String name,String phoneNumber,String day,String classify,int state)throws SQLException{
+    public void deletePetitionFromDatabase(String name,String phoneNumber,String day,String classify)throws SQLException{
         int countPetition=countPetitionForUser(name,phoneNumber);
         if(countPetition==0){
             System.out.println("No row is matching with parameter");
@@ -276,13 +277,13 @@ public class Database {
 
         String peopleID=getPeopleID(phoneNumber);
         if(countPetition==1){
-            removePetition(peopleID,day,classify,state);
+            removePetition(peopleID,day,classify);
             deleteUser(peopleID);
             return;
         }
 
         //else count>=2
-        removePetition(peopleID,day,classify,state);
+        removePetition(peopleID,day,classify);
     }
 
 }

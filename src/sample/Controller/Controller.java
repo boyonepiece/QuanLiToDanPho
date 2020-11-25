@@ -1,7 +1,6 @@
 package sample.Controller;
 
 import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -9,25 +8,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-
-
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
-import javax.swing.*;
-import javax.swing.text.StyledEditorKit;
-import java.awt.*;
-import java.io.IOException;
-import java.sql.SQLException;
-
 import sample.Database;
+
+import java.io.IOException;
 
 public class Controller {
     @FXML
@@ -61,7 +50,7 @@ public class Controller {
     public void setSceneHome(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../Fxml/sample1.fxml"));
         Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root,1500,800);
+        Scene scene = new Scene(root,1529,900);
         //window.getIcons().add(new Image(getClass().getResourceAsStream("../book.png")));
         window.setTitle("Quản lý thông tin tổ dân phố");
         window.setX(0);

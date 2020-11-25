@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.Controller1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1592.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.Controller1">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -64,7 +64,7 @@
             <Button layoutX="32.0" layoutY="335.0" mnemonicParsing="false" prefWidth="293.0" text="5. Quản lý cấp phần thưởng" />
             <Button layoutX="32.0" layoutY="388.0" mnemonicParsing="false" onAction="#pressButton6" prefWidth="293.0" text="6. Quản lý thông tin phản ánh, kiến nghị" />
             <Button layoutX="32.0" layoutY="441.0" mnemonicParsing="false" prefWidth="293.0" text="7. Quản lý thông tin phòng tránh dịch Covid-19" />
-            <Button layoutX="1556.0" layoutY="26.0" mnemonicParsing="false" onAction="#pressButtonOut" text="Đăng xuất" />
+            <Button layoutX="1406.0" layoutY="26.0" mnemonicParsing="false" onAction="#pressButtonOut" text="Đăng xuất" />
             <Separator layoutX="323.0" layoutY="83.0" orientation="VERTICAL" prefHeight="784.0" prefWidth="11.0" />
             <Label fx:id="soHo" layoutX="477.0" layoutY="165.0" text="404" />
             <Label fx:id="soNhanKhau" layoutX="470.0" layoutY="206.0" prefHeight="21.0" prefWidth="44.0" text="1700" />
