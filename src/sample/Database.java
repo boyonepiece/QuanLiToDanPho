@@ -157,7 +157,7 @@ public class Database {
 
     public void changeStatePetition(String name,String phoneNumber,String day,int state) throws SQLException{
 
-        var query="UPDATE DONPHANANH SET TRANGTHAI=? WHERE CMT IN(SELECT CMT FROM DONPHANANH WHERE TEN=? AND DIENTHOAI=?) AND NGAY=?";
+        var query="UPDATE DONPHANANH SET TRANGTHAI=? WHERE CMT IN(SELECT CMT FROM NGUOIPHANANH WHERE TEN=? AND DIENTHOAI=?) AND NGAY=?";
         PreparedStatement preparedStatement=getConnection().prepareStatement(query);
         preparedStatement.setInt(1,state);
         preparedStatement.setNString(2,name);
