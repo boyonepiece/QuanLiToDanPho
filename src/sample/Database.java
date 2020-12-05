@@ -15,7 +15,7 @@ public class Database {
         this.driveName="com.microsoft.sqlserver.jdbc.SQLServerDriver";
         this.url="jdbc:sqlserver://localhost:1433;databaseName=QUANLYTODANPHO";
         this.username="sa";
-        this.password="09042000";
+        this.password="23571113";
         this.connection=createConnection();
     }
     public Connection createConnection(){
@@ -86,6 +86,27 @@ public class Database {
         return false;
     }
 
+    public String getPeopleID(String phoneNumber) throws  SQLException{
+        var query="SELECT CMT FROM NGUOIPHANANH WHERE DIENTHOAI=?";
+        PreparedStatement pre=getConnection().prepareStatement(query);
+        pre.setString(1,phoneNumber);
+        ResultSet result=pre.executeQuery();
+        if(result.next()) {
+            return result.getString("CMT");
+        }
+        return null;
+    }
+
+    public String getIDPetition(String peopleID,String classify,String date) throws SQLException{
+        var query="SELECT ID_DON FROM DONPHANANH WHERE CMT=? AND NGAY=? AND PHANLOAI=?";
+        PreparedStatement pre=getConnection().prepareStatement(query);
+        ResultSet result=pre.executeQuery();
+        if(result.next()){
+            return result.getString(1);
+        }
+        return null;
+    }
+
     /*
      * INSERT DATA INTO DATABASE
      * */
@@ -115,16 +136,6 @@ public class Database {
         preparedStatement.executeUpdate();
     }
 
-    public String getPeopleID(String phoneNumber) throws  SQLException{
-        var query="SELECT CMT FROM NGUOIPHANANH WHERE DIENTHOAI=?";
-        PreparedStatement pre=getConnection().prepareStatement(query);
-        pre.setString(1,phoneNumber);
-        ResultSet result=pre.executeQuery();
-        if(result.next()) {
-            return result.getString("CMT");
-        }
-        return null;
-    }
 
     public void insertPetitionIntoDatabase(String peopleID,String name, String birthday,String phoneNumber,String accommodation,
                                            String content,String day,int quarterOfYear,String classify ,int state) throws SQLException{
@@ -236,6 +247,7 @@ public class Database {
     /*
      * DELETE PETITION FROM DATABASE
      * */
+
     public int countPetitionForUser(String name,String phoneNumber)throws SQLException{
         var query="SELECT COUNT(ID_DON) FROM DONPHANANH " +
                 "WHERE CMT IN " +
@@ -285,4 +297,24 @@ public class Database {
         removePetition(peopleID,day,classify);
     }
 
+
+    /*
+     ADD RESPONSE FROM ORGANIZATION
+     */
+    public void addResponsesFromOrganization(String name,String phoneNumber,String classify,String date,
+               String phoneNumberResponder,String nameResponder,String organization,String content,String dateResponses  ) throws SQLException {
+        String peopleID=getPeopleID(phoneNumber);
+        String idPetition=getIDPetition(peopleID,classify,date);
+        changeStatePetition(name,phoneNumber,date,1);
+
+        var query="INSERT INTO PHANHOI(ID_DON,SODIENTHOAI_NGUOIPHANHOI,TENNGUOIPHANHOI,COQUAN,NOIDUNGPHANHOI,NGAY) VALUES(?,?,?,?,?,?)";
+        PreparedStatement pre=getConnection().prepareStatement(query);
+        pre.setString(1,idPetition);
+        pre.setString(2,phoneNumberResponder);
+        pre.setNString(3,nameResponder);
+        pre.setNString(4,organization);
+        pre.setNString(5,content);
+        pre.setString(6,dateResponses);
+        pre.executeUpdate(query);
+    }
 }
