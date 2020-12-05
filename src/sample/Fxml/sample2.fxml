@@ -25,7 +25,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1529.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.Controller2">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1529.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.Controller2">
    <top>
        <MenuBar BorderPane.alignment="CENTER">
            <menus>
@@ -75,17 +75,17 @@
                               <AnchorPane prefHeight="222.0" prefWidth="515.0">
                                  <children>
                                     <Text layoutX="19.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Người làm đơn: " wrappingWidth="86.00390625" />
+                                    <TextField fx:id="hoTen" layoutX="116.0" layoutY="16.0" prefHeight="23.0" prefWidth="204.0" />
+                                    <PasswordField fx:id="cmt1" layoutX="116.0" layoutY="62.0" prefHeight="26.0" prefWidth="205.0" />
                                     <TextField fx:id="diaChi" layoutX="116.0" layoutY="98.0" prefHeight="26.0" prefWidth="204.0" />
                                     <Text layoutX="13.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Địa chỉ:" />
-                                    <TextField fx:id="hoTen" layoutX="116.0" layoutY="16.0" prefHeight="23.0" prefWidth="204.0" />
                                     <Text layoutX="386.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày sinh" wrappingWidth="87.955078125" />
                                     <DatePicker fx:id="ngaySinh" layoutX="467.0" layoutY="15.0" prefHeight="26.0" prefWidth="198.0" />
                                     <Text layoutX="386.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SĐT" wrappingWidth="21.076171875" />
                                     <Text layoutX="381.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày nộp" />
-                                    <DatePicker fx:id="ngayNop" layoutX="467.0" layoutY="97.0" prefHeight="26.0" prefWidth="206.0" />
                                     <TextField fx:id="SDT1" layoutX="467.0" layoutY="61.0" prefHeight="26.0" prefWidth="204.0" />
+                                    <DatePicker fx:id="ngayNop" layoutX="467.0" layoutY="97.0" prefHeight="26.0" prefWidth="206.0" />
                                     <Text layoutX="13.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chứng minh thư" wrappingWidth="99.1328125" />
-                                    <PasswordField fx:id="cmt1" layoutX="116.0" layoutY="62.0" prefHeight="26.0" prefWidth="205.0" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0" visible="false">
@@ -133,7 +133,7 @@
             <Button layoutX="19.0" layoutY="208.0" mnemonicParsing="false" onAction="#button_ds_XuLi" prefHeight="31.0" prefWidth="217.0" text="Danh sách đơn đang chờ xử lí" />
             <Button layoutX="19.0" layoutY="253.0" mnemonicParsing="false" onAction="#button_timKiem" prefHeight="31.0" prefWidth="217.0" text="Tìm kiếm" />
             <Button layoutX="1408.0" layoutY="26.0" mnemonicParsing="false" onAction="#pressButtonHome" text="Trang chủ" />
-            <AnchorPane fx:id="ds_MoiNhan" layoutX="265.0" layoutY="114.0" prefHeight="722.0" prefWidth="1400.0">
+            <AnchorPane fx:id="ds_MoiNhan" layoutX="265.0" layoutY="114.0" prefHeight="722.0" prefWidth="1400.0" visible="false">
                <children>
                   <Label layoutX="57.0" layoutY="21.0" text="Danh sách đơn mới ghi nhận">
                      <font>

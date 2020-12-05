@@ -305,14 +305,14 @@ public class Controller2 {
         });
     }
 
-    public void luuChange(ActionEvent actionEvent) {
+    public void luuChange(ActionEvent actionEvent) throws SQLException {
         Database database = new Database();
         for(DonPhanAnh donPhanAnh : list){
             if(donPhanAnh.getRemark().isSelected()){
-                database.changeStatePetition();
-
+               database.changeStatePetition(donPhanAnh.getName(),donPhanAnh.getPhoneNumber(),donPhanAnh.getDate(),0);
             }
         }
+        showAlter();
     }
 
     public void delete(ActionEvent actionEvent) throws SQLException {
