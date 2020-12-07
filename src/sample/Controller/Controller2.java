@@ -197,7 +197,7 @@ public class Controller2 {
             int state = -1;
             String classify = null;
             classify = getClassify();
-            database.createPetitionInDatabase(cmt,ndChiTiet,date,quy,classify,state);
+            //database.createPetitionInDatabase(cmt,ndChiTiet,date,quy,classify,state);
             showAlter();
         }
         else{
@@ -218,7 +218,7 @@ public class Controller2 {
             int quy = Integer.parseInt(arrayQuy[1])/3+1;
             int state = -1;
 
-            database.insertPetitionIntoDatabase(cmt,name,birthday,sdt,accommodation,ndChiTiet,date,quy,classify,state);
+            //database.insertPetitionIntoDatabase(cmt,name,birthday,sdt,accommodation,ndChiTiet,date,quy,classify,state);
 
             showAlter();
         }
