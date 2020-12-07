@@ -15,7 +15,7 @@ public class Database {
         this.driveName="com.microsoft.sqlserver.jdbc.SQLServerDriver";
         this.url="jdbc:sqlserver://localhost:1433;databaseName=QUANLYTODANPHO";
         this.username="sa";
-        this.password="23571113";
+        this.password="20102000";
         this.connection=createConnection();
     }
     public Connection createConnection(){
@@ -223,9 +223,9 @@ public class Database {
         PreparedStatement pre=getConnection().prepareStatement(query);
         pre.setNString(1,name);
         pre.setString(2,phoneNumber);
-        pre.setString(2,day);
-        pre.setNString(3,classify);
-        pre.setInt(4,state);
+        pre.setString(3,day);
+        pre.setNString(4,classify);
+        pre.setInt(5,state);
         return pre.executeQuery();
     }
     public ResultSet getListPetitionFromPeopleIDAndPhoneNumber(String peopleID,String phoneNumber) throws SQLException{
