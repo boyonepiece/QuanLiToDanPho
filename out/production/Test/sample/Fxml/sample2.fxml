@@ -196,22 +196,22 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TableView layoutX="-19.0" layoutY="80.0" prefHeight="459.0" prefWidth="1234.0">
+                  <TableView fx:id="tableSearch" layoutX="-19.0" layoutY="80.0" prefHeight="459.0" prefWidth="1234.0">
                      <columns>
-                        <TableColumn prefWidth="60.0" text="STT" />
-                        <TableColumn prefWidth="191.0" text="Họ tên" />
-                        <TableColumn prefWidth="117.0" text="Địa chỉ" />
-                        <TableColumn prefWidth="144.0" text="SĐT" />
-                        <TableColumn prefWidth="169.0" text="Ngày nhận đơn" />
-                        <TableColumn prefWidth="193.0" text="Nội dung phản ánh" />
-                        <TableColumn prefWidth="214.0" text="Chi tiết" />
-                        <TableColumn prefWidth="146.0" text="Trạng thái" />
+                        <TableColumn fx:id="stt_search" prefWidth="60.0" text="STT" />
+                        <TableColumn fx:id="hoten_search" prefWidth="191.0" text="Họ tên" />
+                        <TableColumn fx:id="diachi_search" prefWidth="117.0" text="Địa chỉ" />
+                        <TableColumn fx:id="sdt_search" prefWidth="144.0" text="SĐT" />
+                        <TableColumn fx:id="ngay_search" prefWidth="169.0" text="Ngày nhận đơn" />
+                        <TableColumn fx:id="noidung_search" prefWidth="193.0" text="Nội dung phản ánh" />
+                        <TableColumn fx:id="chitiet_search" prefWidth="214.0" text="Chi tiết" />
+                        <TableColumn fx:id="trangthai_search" prefWidth="146.0" text="Trạng thái" />
                      </columns>
                   </TableView>
-                  <TextField layoutX="152.0" layoutY="30.0" prefHeight="31.0" prefWidth="207.0" promptText="Họ tên" />
-                  <TextField layoutX="377.0" layoutY="30.0" promptText="SĐT" />
-                  <TextField layoutX="582.0" layoutY="30.0" promptText="Ngày" />
-                  <Button layoutX="1134.0" layoutY="28.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="73.0" text="Tìm" />
+                  <TextField fx:id="hoten" layoutX="152.0" layoutY="30.0" prefHeight="31.0" prefWidth="207.0" promptText="Họ tên" />
+                  <TextField fx:id="sdt" layoutX="377.0" layoutY="30.0" promptText="SĐT" />
+                  <TextField fx:id="ngay" layoutX="582.0" layoutY="30.0" promptText="Ngày" />
+                  <Button layoutX="1134.0" layoutY="28.0" mnemonicParsing="false" onAction="#search" prefHeight="31.0" prefWidth="73.0" text="Tìm" />
                   <ComboBox fx:id="tim_Noidung" layoutX="790.0" layoutY="28.0" prefWidth="150.0" promptText="Nội dung" />
                   <ComboBox fx:id="tim_Trangthai" layoutX="961.0" layoutY="28.0" prefWidth="150.0" promptText="Trạng thái" />
                </children>

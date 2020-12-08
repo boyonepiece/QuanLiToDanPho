@@ -76,6 +76,21 @@ public class Controller2 {
     public ComboBox tim_Noidung;
     @FXML
     public ComboBox tim_Trangthai;
+    @FXML
+    private TextField hoten;
+    @FXML
+    private TextField sdt;
+    @FXML
+    private TextField ngay;
+    @FXML
+    private TableView tableSearch;
+    @FXML
+    private TableColumn<DonPhanAnh,String> hoten_search,
+            diachi_search,sdt_search,ngay_search,noidung_search,chitiet_search;
+    @FXML
+    private TableColumn<DonPhanAnh, Boolean> trangthai_search;
+    @FXML
+    private TableColumn<DonPhanAnh, Integer> stt_search;
 
     ObservableList<Integer> list_quy = FXCollections.observableArrayList(1, 2, 3, 4);
     ObservableList<String> list_Noidung = FXCollections.observableArrayList("An ninh, trật tự", "Cơ sở hạ tầng", "Quy định, quy chế", "Khác...");
@@ -159,6 +174,52 @@ public class Controller2 {
         window.show();
     }
 
+    //chức năng tìm kiếm
+    public void search() throws SQLException{
+        String ho_ten = hoten.getText();
+        String so_dien_thoai = sdt.getText();
+        String _ngay = ngay.getText();
+        String noidung = tim_Noidung.getValue().toString();
+        String trangthai = tim_Trangthai.getValue().toString();
+        int tt = -2;
+        if(trangthai == "Mới ghi nhận") tt = -1;
+        else if(trangthai == "Chưa giải quyết") tt = 0;
+        else if(trangthai == "Đã giải quyết") tt = 1;
+        Database database = new Database();
+        ResultSet newPetition = database.getListPetitionFromTheCondition(ho_ten, so_dien_thoai, _ngay, noidung, tt);
+        ArrayList<DonPhanAnh> list = new ArrayList<DonPhanAnh>();
+        int i=0;
+        while(newPetition.next()){
+            DonPhanAnh donPhanAnh;
+            String name = newPetition.getString("TEN");
+            String address = newPetition.getString("NOISONG");
+            String phone = newPetition.getString("DIENTHOAI");
+            String day = newPetition.getString("NGAY");
+            String classify = newPetition.getString("PHANLOAI");
+            String noiDung = newPetition.getString("NOIDUNG");
+            donPhanAnh = new DonPhanAnh(name,address,phone,day,
+                    classify,noiDung,i+1,false);
+            list.add(donPhanAnh);
+            i++;
+        }
+        ObservableList<DonPhanAnh> list1 = FXCollections.observableArrayList();
+        int size = list.size();
+        for(int k=0;k<size;k++){
+            list1.add(list.get(k));
+        }
+        allDon.setText(String.valueOf(size));
+
+        stt_search.setCellValueFactory(new PropertyValueFactory<>("stt"));
+        hoten_search.setCellValueFactory(new PropertyValueFactory<>("name"));
+        diachi_search.setCellValueFactory(new PropertyValueFactory<>("address"));
+        sdt_search.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        ngay_search.setCellValueFactory(new PropertyValueFactory<>("date"));
+        noidung_search.setCellValueFactory(new PropertyValueFactory<>("classify"));
+        chitiet_search.setCellValueFactory(new PropertyValueFactory<>("chiTiet"));
+        trangthai_search.setCellValueFactory(new PropertyValueFactory<>("remark"));
+        tableSearch.setItems(list1);
+    }
+
     public String getClassify(){
         String classify=null;
         if(radioAnNinh.isSelected()){
@@ -197,7 +258,7 @@ public class Controller2 {
             int state = -1;
             String classify = null;
             classify = getClassify();
-            database.createPetitionInDatabase(cmt,ndChiTiet,date,quy,classify,state);
+            //database.createPetitionInDatabase(cmt,ndChiTiet,date,quy,classify,state);
             showAlter();
         }
         else{
@@ -218,7 +279,7 @@ public class Controller2 {
             int quy = Integer.parseInt(arrayQuy[1])/3+1;
             int state = -1;
 
-            database.insertPetitionIntoDatabase(cmt,name,birthday,sdt,accommodation,ndChiTiet,date,quy,classify,state);
+            //database.insertPetitionIntoDatabase(cmt,name,birthday,sdt,accommodation,ndChiTiet,date,quy,classify,state);
 
             showAlter();
         }
