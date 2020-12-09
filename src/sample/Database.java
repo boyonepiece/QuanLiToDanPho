@@ -101,6 +101,9 @@ public class Database {
     public String getIDPetition(String peopleID,String classify,String date) throws SQLException{
         var query="SELECT ID_DON FROM DONPHANANH WHERE CMT=? AND NGAY=? AND PHANLOAI=?";
         PreparedStatement pre=getConnection().prepareStatement(query);
+        pre.setString(1,peopleID);
+        pre.setNString(2,classify);
+        pre.setString(3,date);
         ResultSet result=pre.executeQuery();
         if(result.next()){
             return result.getString(1);
@@ -297,7 +300,7 @@ public class Database {
 
     public ResultSet getListPetitionSolved() throws SQLException{
         var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG " +
-                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT" +
+                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT " +
                 "INNER JOIN DONDAXULY D ON DPA.ID_DON=D.ID_DON ORDER BY NGAY DESC";
         PreparedStatement pre=getConnection().prepareStatement(query);
         return pre.executeQuery();
@@ -306,7 +309,7 @@ public class Database {
 
     public ResultSet getListPetitionUnsolved()throws SQLException{
         var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG " +
-                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT" +
+                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT " +
                 "INNER JOIN DONDANGCHOXULY D ON DPA.ID_DON=D.ID_DON ORDER BY NGAY DESC";
         PreparedStatement pre=getConnection().prepareStatement(query);
         return pre.executeQuery();
@@ -314,7 +317,7 @@ public class Database {
 
     public ResultSet getListNewPetition()throws SQLException{
         var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG " +
-                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT" +
+                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT " +
                 "INNER JOIN DONMOINHAN DMN ON DPA.ID_DON=DMN.ID_DON ORDER BY NGAY DESC";
         Connection connection=getConnection();
         PreparedStatement pre=connection.prepareStatement(query);
@@ -341,7 +344,7 @@ public class Database {
         int a=4*(quarterOfYear-1);
         int b=4*quarterOfYear;
         var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG " +
-                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT" +
+                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT " +
                 "INNER JOIN ? D ON DPA.ID_DON=D.ID_DON WHERE MONTH(NGAY) BETWEEN ? AND ? ORDER BY NGAY DESC";
         PreparedStatement pre=getConnection().prepareStatement(query);
         pre.setString(1,nameTable);
@@ -363,7 +366,7 @@ public class Database {
         }
 
         var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG " +
-                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT" +
+                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT " +
                 "INNER JOIN ? D ON DPA.ID_DON=D.ID_DON WHERE MONTH(NGAY) BETWEEN ? AND ? ORDER BY NGAY DESC";
         PreparedStatement pre=getConnection().prepareStatement(query);
 
@@ -394,7 +397,7 @@ public class Database {
         }
 
         var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG " +
-                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT" +
+                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT " +
                 "INNER JOIN ? D ON DPA.ID_DON=D.ID_DON WHERE CMT=? AND DIENTHOAI=?";
         PreparedStatement pre=getConnection().prepareStatement(query);
         pre.setString(1,nameTable);
