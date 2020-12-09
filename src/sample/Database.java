@@ -366,17 +366,11 @@ public class Database {
                 "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT" +
                 "INNER JOIN ? D ON DPA.ID_DON=D.ID_DON WHERE MONTH(NGAY) BETWEEN ? AND ? ORDER BY NGAY DESC";
         PreparedStatement pre=getConnection().prepareStatement(query);
-<<<<<<< HEAD
-        pre.setNString(1,name);
-        pre.setString(2,phoneNumber);
-        pre.setString(3,day);
-        pre.setNString(4,classify);
-        pre.setInt(5,state);
-=======
+
         pre.setString(1,nameTable);
         pre.setString(2,name);
         pre.setString(3,phoneNumber);
->>>>>>> d68e054624aeea796b10f926c65b8fa233d9a6b5
+
         return pre.executeQuery();
     }
 

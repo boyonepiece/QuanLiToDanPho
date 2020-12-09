@@ -175,7 +175,7 @@ public class Controller2 {
     }
 
     //chức năng tìm kiếm
-    public void search() throws SQLException{
+    /*public void search() throws SQLException{
         String ho_ten = hoten.getText();
         String so_dien_thoai = sdt.getText();
         String _ngay = ngay.getText();
@@ -219,7 +219,7 @@ public class Controller2 {
         trangthai_search.setCellValueFactory(new PropertyValueFactory<>("remark"));
         tableSearch.setItems(list1);
     }
-
+*/
     public String getClassify(){
         String classify=null;
         if(radioAnNinh.isSelected()){
