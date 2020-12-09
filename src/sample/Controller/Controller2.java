@@ -23,6 +23,7 @@ import sample.Entity.DonPhanAnh;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Controller2 {
@@ -175,8 +176,8 @@ public class Controller2 {
     }
 
     //chức năng tìm kiếm
-    /*public void search() throws SQLException{
-        String ho_ten = hoten.getText();
+    public void search() throws SQLException{
+        /*String ho_ten = hoten.getText();
         String so_dien_thoai = sdt.getText();
         String _ngay = ngay.getText();
         String noidung = tim_Noidung.getValue().toString();
@@ -217,9 +218,9 @@ public class Controller2 {
         noidung_search.setCellValueFactory(new PropertyValueFactory<>("classify"));
         chitiet_search.setCellValueFactory(new PropertyValueFactory<>("chiTiet"));
         trangthai_search.setCellValueFactory(new PropertyValueFactory<>("remark"));
-        tableSearch.setItems(list1);
+        tableSearch.setItems(list1);*/
     }
-*/
+
     public String getClassify(){
         String classify=null;
         if(radioAnNinh.isSelected()){
@@ -258,7 +259,7 @@ public class Controller2 {
             int state = -1;
             String classify = null;
             classify = getClassify();
-            //database.createPetitionInDatabase(cmt,ndChiTiet,date,quy,classify,state);
+            database.createNewPetition(cmt,date,classify,ndChiTiet);
             showAlter();
         }
         else{
@@ -269,7 +270,7 @@ public class Controller2 {
             String sdt = SDT1.getText();
 
             //insert nguoi lam don
-            /*database.insertUser(cmt,name,birthday,sdt,accommodation);*/
+            //database.insertUser(cmt,name,birthday,sdt,accommodation);
             String classify = null;
             classify = getClassify();
             //insert noi dung
@@ -279,10 +280,11 @@ public class Controller2 {
             int quy = Integer.parseInt(arrayQuy[1])/3+1;
             int state = -1;
 
-            //database.insertPetitionIntoDatabase(cmt,name,birthday,sdt,accommodation,ndChiTiet,date,quy,classify,state);
+            database.insertPetitionIntoDatabase(cmt,name,birthday,sdt,accommodation,ndChiTiet,date,classify);
 
             showAlter();
         }
+
         database = null;
 
 
@@ -334,7 +336,7 @@ public class Controller2 {
             String phone = newPetition.getString("DIENTHOAI");
             String day = newPetition.getString("NGAY");
             String classify = newPetition.getString("PHANLOAI");
-            String noiDung = newPetition.getString("NOIDUNG");
+            String noiDung = newPetition.getString("NOIDUNGPHANANH");
             donPhanAnh = new DonPhanAnh(name,address,phone,day,
                     classify,noiDung,i+1,false);
             list.add(donPhanAnh);
@@ -348,7 +350,7 @@ public class Controller2 {
         allDon.setText(String.valueOf(size));
         return list1;
     }
-    
+
     public void initialize(){
         selectAllDonNop.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -370,7 +372,10 @@ public class Controller2 {
         Database database = new Database();
         for(DonPhanAnh donPhanAnh : list){
             if(donPhanAnh.getRemark().isSelected()){
-               database.changeStatePetition(donPhanAnh.getName(),donPhanAnh.getPhoneNumber(),donPhanAnh.getDate(),0);
+                LocalDate date1 = LocalDate.now();
+                String currDate =  date1.toString();
+                database.confirmFromNewPetitionToPendingPetition(donPhanAnh.getPhoneNumber(),donPhanAnh.getDate(),
+                        donPhanAnh.getClassify(),donPhanAnh.getChiTiet(),currDate);
             }
         }
         showAlter();
@@ -380,8 +385,7 @@ public class Controller2 {
         Database database = new Database();
         for(DonPhanAnh donPhanAnh : list){
             if(donPhanAnh.getRemark().isSelected()){
-                database.deletePetitionFromDatabase(donPhanAnh.getName(),donPhanAnh.getPhoneNumber(),
-                        donPhanAnh.getDate(),donPhanAnh.getClassify());
+                database.deleteSpamPetition(donPhanAnh.getName(),donPhanAnh.getPhoneNumber(),donPhanAnh.getDate(),donPhanAnh.getClassify());
 
             }
         }
