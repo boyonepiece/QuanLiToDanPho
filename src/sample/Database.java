@@ -351,7 +351,7 @@ public class Database {
         return pre.executeQuery();
     }
 
-    public ResultSet getListPetitionFromNameAndPhoneNumber(String name,String phoneNumber,int table) throws SQLException{
+    public ResultSet searchPetition(String name, String phoneNumber, String day, String classify, int table) throws SQLException{
         String nameTable="";
         if(table==-1){
             nameTable="DONMOINHAN";
@@ -362,44 +362,42 @@ public class Database {
         else if(table==1){
             nameTable="DONDAXULY";
         }
+        int count=0;
+        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNGPHANANH " +
+                "FROM NGUOIPHANANH N INNER JOIN DONPHANANH DPA ON N.CMT=DPA.CMT " +
+                "INNER JOIN "+nameTable+" D ON DPA.ID_DON=D.ID_DON WHERE ";
+        if(name.length()!=0){
+            query+=" TEN= N'"+ name+"'";
+            count++;
+        }
 
-        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG " +
-                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT " +
-                "INNER JOIN ? D ON DPA.ID_DON=D.ID_DON WHERE MONTH(NGAY) BETWEEN ? AND ? ORDER BY NGAY DESC";
+        if(phoneNumber.length()!=0){
+            if(count!=0){
+                query+=" AND ";
+            }
+            query+=" DIENTHOAI='"+phoneNumber+"'";
+            count++;
+        }
+
+        if(day.length()!=0){
+            if(count!=0){
+                query+=" AND ";
+            }
+            query+=" NGAY='"+day+"'";
+            count++;
+        }
+
+        if(classify.length()!=0){
+            if(count!=0){
+                query+=" AND ";
+            }
+            query+=" PHANLOAI=N'"+classify+"'";
+        }
+
         PreparedStatement pre=getConnection().prepareStatement(query);
-        pre.setString(1,nameTable);
-        pre.setString(2,name);
-        pre.setString(3,phoneNumber);
-        return pre.executeQuery();
+        ResultSet resultSet=pre.executeQuery();
+        return resultSet;
     }
 
-    public ResultSet getListPetitionFromPeopleIDAndPhoneNumber(String peopleID,String phoneNumber,int table) throws SQLException{
-        String id=getPeopleID(phoneNumber);
-        if(id==null){
-            return null;
-        }
-        if(!new HashID().checkPeopleIDExist(peopleID, id)){
-            return null;
-        }
-        String nameTable="";
-        if(table==-1){
-            nameTable="DONMOINHAN";
-        }
-        else if(table==0){
-            nameTable="DONDANGCHOXULY";
-        }
-        else if(table==1){
-            nameTable="DONDAXULY";
-        }
 
-        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG " +
-                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT " +
-                "INNER JOIN ? D ON DPA.ID_DON=D.ID_DON WHERE CMT=? AND DIENTHOAI=?";
-        PreparedStatement pre=getConnection().prepareStatement(query);
-        pre.setString(1,nameTable);
-        pre.setString(2,id);
-        pre.setString(3,phoneNumber);
-        return pre.executeQuery();
-    }
-    
 }
