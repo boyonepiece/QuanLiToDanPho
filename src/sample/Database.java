@@ -340,15 +340,14 @@ public class Database {
         else if(table==1){
             nameTable="DONDAXULY";
         }
-        int a=4*(quarterOfYear-1);
-        int b=4*quarterOfYear;
-        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG " +
-                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT " +
-                "INNER JOIN ? D ON DPA.ID_DON=D.ID_DON WHERE MONTH(NGAY) BETWEEN ? AND ? ORDER BY NGAY DESC";
+        int a=3*(quarterOfYear-1)+1;
+        int b=3*quarterOfYear;
+        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNGPHANANH \n" +
+                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT \n" +
+                "INNER JOIN " +nameTable+" D ON DPA.ID_DON=D.ID_DON WHERE MONTH(NGAY) BETWEEN ? AND ? ORDER BY NGAY DESC";
         PreparedStatement pre=getConnection().prepareStatement(query);
-        pre.setString(1,nameTable);
-        pre.setInt(2,a);
-        pre.setInt(3,b);
+        pre.setInt(1,a);
+        pre.setInt(2,b);
         return pre.executeQuery();
     }
 
@@ -402,4 +401,5 @@ public class Database {
         pre.setString(3,phoneNumber);
         return pre.executeQuery();
     }
+    
 }
