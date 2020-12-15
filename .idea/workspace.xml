@@ -19,7 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="40c4d2f3-9402-42c4-8da0-a4a22c7f2fa6" name="Default Changelist" comment="" />
+    <list default="true" id="40c4d2f3-9402-42c4-8da0-a4a22c7f2fa6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Database.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -283,7 +286,7 @@
       <workItem from="1607594601531" duration="256000" />
       <workItem from="1608024782943" duration="1392000" />
       <workItem from="1608043604893" duration="1019000" />
-      <workItem from="1608045187432" duration="1228000" />
+      <workItem from="1608045187432" duration="3408000" />
     </task>
     <servers />
   </component>
@@ -357,9 +360,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="594" y="128" key="DetectedRootsChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1606188158448" />
-    <state x="2105" y="193" key="FileChooserDialogImpl" timestamp="1608045200195">
-      <screen x="1366" y="0" width="1920" height="1040" />
+    <state x="526" y="135" key="FileChooserDialogImpl" timestamp="1608047940917">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
+    <state x="526" y="135" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@0.0.1366.728" timestamp="1608047940917" />
     <state x="2105" y="193" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1608045200195" />
     <state x="526" y="135" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1607495214533" />
     <state x="591" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1606406557991" />
