@@ -16,7 +16,7 @@ public class Database {
         this.driveName="com.microsoft.sqlserver.jdbc.SQLServerDriver";
         this.url="jdbc:sqlserver://localhost:1433;databaseName=DANPHO";
         this.username="sa";
-        this.password="23571113";
+        this.password="09042000";
         this.connection=createConnection();
     }
     public Connection createConnection(){
@@ -163,8 +163,9 @@ public class Database {
                                            String content,String day,String classify ) throws SQLException{
         HashID hashId=new HashID();
         String id=getPeopleID(phoneNumber);
+        System.out.println(id);
         if(id!=null) {//if user exist in database
-            if(!hashId.checkPeopleIDExist(peopleID, id)){
+            if(hashId.checkPeopleIDExist(peopleID,id)==false){
                 System.out.println("Typing incorrect,The phone number is used");
                 return;
             }
@@ -214,19 +215,21 @@ public class Database {
         pre2.executeUpdate();
     }
     public void deletePetition(String petitionID) throws SQLException{
-        var query="DELETE FROM DONPHANANH WHERE ID_DON=?;";
-        PreparedStatement pre=getConnection().prepareStatement(query);
-        pre.setString(1,petitionID);
-        pre.executeUpdate();
 
         var query1="DELETE FROM DONMOINHAN WHERE ID_DON=?;";
         PreparedStatement pre1=getConnection().prepareStatement(query1);
         pre1.setString(1,petitionID);
         pre1.executeUpdate();
+
+        var query="DELETE FROM DONPHANANH WHERE ID_DON=?;";
+        PreparedStatement pre=getConnection().prepareStatement(query);
+        pre.setString(1,petitionID);
+        pre.executeUpdate();
     }
     public int countPetitionFromPeopleID(String peopleID)throws SQLException{
         var query="SELECT COUNT(ID_DON) FROM DONPHANANH WHERE CMT=?";
         PreparedStatement pre=getConnection().prepareStatement(query);
+        pre.setString(1,peopleID);
         ResultSet result=pre.executeQuery();
         if(result.next()){
             return result.getInt(1);
@@ -239,8 +242,8 @@ public class Database {
         int count=countPetitionFromPeopleID(peopleID);
         String petitionID=getIDPetition(peopleID,classify,day);
         if(count==1){
-            deleteUser(peopleID);
             deletePetition(petitionID);
+            deleteUser(peopleID);
         }
         else if(count>1){
             deletePetition(petitionID);
@@ -290,7 +293,6 @@ public class Database {
         deletePetitionForUpdate(petitionID,2);
         insertSolvedPetition(petitionID,contentPetition,phoneNumberResponder,nameResponder,organization,contentResponse,sentDate,solvedDate);
     }
-
 
 
 
