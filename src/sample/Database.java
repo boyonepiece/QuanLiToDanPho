@@ -101,6 +101,9 @@ public class Database {
     public String getIDPetition(String peopleID,String classify,String date) throws SQLException{
         var query="SELECT ID_DON FROM DONPHANANH WHERE CMT=? AND NGAY=? AND PHANLOAI=?";
         PreparedStatement pre=getConnection().prepareStatement(query);
+        pre.setString(1,peopleID);
+        pre.setString(2,date);
+        pre.setNString(3,classify);
         ResultSet result=pre.executeQuery();
         if(result.next()){
             return result.getString(1);
@@ -174,12 +177,12 @@ public class Database {
         createNewPetition(idUser,day,classify,content);
     }
 
-    public void insertPendingPetition(String petitionID,String content,String date) throws SQLException{
+    public void insertPendingPetition(String petitionID,String content,String dateSent) throws SQLException{
         var query="INSERT INTO DONDANGCHOXULY(ID_DON,NOIDUNGPHANANH,NGAYCHUYENLENCAPTREN) VALUES (?,?,?)";
         PreparedStatement pre1=getConnection().prepareStatement(query);
         pre1.setString(1,petitionID);
         pre1.setNString(2,content);
-        pre1.setString(3,date);
+        pre1.setString(3,dateSent);
         pre1.executeUpdate();
     }
 
