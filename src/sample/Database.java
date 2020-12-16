@@ -16,7 +16,7 @@ public class Database {
         this.driveName="com.microsoft.sqlserver.jdbc.SQLServerDriver";
         this.url="jdbc:sqlserver://localhost:1433;databaseName=DANPHO";
         this.username="sa";
-        this.password="09042000";
+        this.password="23571113";
         this.connection=createConnection();
     }
     public Connection createConnection(){
@@ -98,12 +98,24 @@ public class Database {
         return null;
     }
 
-    public String getIDPetition(String peopleID,String classify,String date) throws SQLException{
-        var query="SELECT ID_DON FROM DONPHANANH WHERE CMT=? AND NGAY=? AND PHANLOAI=?";
+    public String getIDPetition(String peopleID,String classify,String date,String content,int table) throws SQLException{
+        String nameTable="";
+        if(table==-1){
+            nameTable="DONMOINHAN";
+        }
+        else if(table==0){
+            nameTable="DONDANGCHOXULY";
+        }
+        else if(table==1){
+            nameTable="DONDAXULY";
+        }
+
+        var query="SELECT DPA.ID_DON FROM DONPHANANH DPA INNER JOIN "+nameTable+ " D ON DPA.ID_DON=D.ID_DON  WHERE CMT=? AND NGAY=? AND PHANLOAI=? AND NOIDUNGPHANANH=?";
         PreparedStatement pre=getConnection().prepareStatement(query);
         pre.setString(1,peopleID);
         pre.setString(2,date);
         pre.setNString(3,classify);
+        pre.setNString(4,content);
         ResultSet result=pre.executeQuery();
         if(result.next()){
             return result.getString(1);
@@ -130,7 +142,7 @@ public class Database {
     public String generatePetitionID(){
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
-        int targetStringLength = 5;
+        int targetStringLength = 6;
         Random random = new Random();
         StringBuilder buffer = new StringBuilder(targetStringLength);
         for (int i = 0; i < targetStringLength; i++) {
@@ -237,10 +249,10 @@ public class Database {
         return 0;
     }
 
-    public void deleteSpamPetition(String name,String phoneNumber,String day,String classify) throws SQLException{
+    public void deleteSpamPetition(String name,String phoneNumber,String day,String classify,String content) throws SQLException{
         String peopleID=getPeopleID(phoneNumber);
         int count=countPetitionFromPeopleID(peopleID);
-        String petitionID=getIDPetition(peopleID,classify,day);
+        String petitionID=getIDPetition(peopleID,classify,day,content,-1);
         if(count==1){
             deletePetition(petitionID);
             deleteUser(peopleID);
@@ -275,7 +287,7 @@ public class Database {
 
     public void confirmFromNewPetitionToPendingPetition(String phoneNumber,String date,String classify,String content,String sentDate) throws SQLException{
         String peopleID=getPeopleID(phoneNumber);
-        String petitionID=getIDPetition(peopleID,classify,date);
+        String petitionID=getIDPetition(peopleID,classify,date,content,-1);
         deletePetitionForUpdate(petitionID,1);
         insertPendingPetition(petitionID,content,sentDate);
     }
@@ -289,7 +301,7 @@ public class Database {
                                              String nameResponder,String organization,String contentResponse,
                                              String sentDate,String solvedDate ) throws SQLException {
         String peopleID=getPeopleID(phoneNumber);
-        String petitionID=getIDPetition(peopleID,classify,date);
+        String petitionID=getIDPetition(peopleID,classify,date,contentPetition,0);
         deletePetitionForUpdate(petitionID,2);
         insertSolvedPetition(petitionID,contentPetition,phoneNumberResponder,nameResponder,organization,contentResponse,sentDate,solvedDate);
     }

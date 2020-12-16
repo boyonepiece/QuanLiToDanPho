@@ -20,22 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="40c4d2f3-9402-42c4-8da0-a4a22c7f2fa6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/mssql_jdbc_8_4_0_jre14.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/mssql_jdbc_8_4_1_jre14.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller2$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller2$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Test/sample/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Test/sample/Database.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/sample/Entity/DonPhanAnh.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Test/sample/Entity/DonPhanAnh.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Test/sample/Fxml/sample2.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Test/sample/Fxml/sample2.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/sample/Hash/HashID.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Test/sample/Hash/HashID.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/sample/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Test/sample/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Controller/Controller2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller/Controller2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sample/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Database.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sample/Fxml/sample2.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Fxml/sample2.fxml" afterDir="false" />
     </list>
@@ -97,6 +86,7 @@
       <updated>1607503012727</updated>
       <workItem from="1607503013897" duration="182000" />
       <workItem from="1607527954151" duration="834000" />
+      <workItem from="1608116441894" duration="5137000" />
     </task>
     <servers />
   </component>
@@ -131,21 +121,25 @@
     </state>
     <state x="488" y="148" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1607526355743" />
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1607503122670" />
-    <state width="1323" height="252" key="GridCell.Tab.0.bottom" timestamp="1607527588411">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1877" height="275" key="GridCell.Tab.0.bottom" timestamp="1608125599567">
+      <screen x="1366" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="275" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1608125599567" />
     <state width="1323" height="252" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1607527588411" />
-    <state width="1323" height="252" key="GridCell.Tab.0.center" timestamp="1607527588411">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1877" height="275" key="GridCell.Tab.0.center" timestamp="1608125599566">
+      <screen x="1366" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="275" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1608125599566" />
     <state width="1323" height="252" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1607527588411" />
-    <state width="1323" height="252" key="GridCell.Tab.0.left" timestamp="1607527588411">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1877" height="275" key="GridCell.Tab.0.left" timestamp="1608125599566">
+      <screen x="1366" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="275" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1608125599566" />
     <state width="1323" height="252" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1607527588411" />
-    <state width="1323" height="252" key="GridCell.Tab.0.right" timestamp="1607527588411">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1877" height="275" key="GridCell.Tab.0.right" timestamp="1608125599567">
+      <screen x="1366" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="275" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1608125599567" />
     <state width="1323" height="252" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1607527588411" />
     <state x="221" y="0" key="SettingsEditor" timestamp="1607525400484">
       <screen x="0" y="0" width="1366" height="728" />

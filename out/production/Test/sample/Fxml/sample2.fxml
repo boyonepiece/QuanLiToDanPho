@@ -120,7 +120,7 @@
                         </Group>
                         <Text layoutX="20.0" layoutY="384.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chi tiết: " />
                         <TextArea fx:id="chiTiet" layoutX="94.0" layoutY="368.0" prefHeight="222.0" prefWidth="481.0" />
-                        <Button layoutX="594.0" layoutY="559.0" mnemonicParsing="false" onAction="#luuLai" prefHeight="31.0" prefWidth="78.0" text="Lưu lại" />
+                        <Button layoutX="296.0" layoutY="617.0" mnemonicParsing="false" onAction="#luuLai" prefHeight="31.0" prefWidth="78.0" text="Lưu lại" />
                         <TextField fx:id="noiDungKhac" layoutX="348.0" layoutY="293.0" prefHeight="31.0" prefWidth="213.0" />
                         <Button layoutX="512.0" layoutY="38.0" mnemonicParsing="false" onAction="#changeHasInfo" text="Đã có thông tin" />
                         <Button layoutX="633.0" layoutY="38.0" mnemonicParsing="false" onAction="#changeNoInfo" text="Chưa có" />
@@ -155,13 +155,13 @@
                   <Label layoutX="1065.0" layoutY="45.0" prefHeight="21.0" prefWidth="71.0" text="Tổng số: " />
                   <Label fx:id="allDon" alignment="CENTER_RIGHT" layoutX="1116.0" layoutY="45.0" prefHeight="21.0" prefWidth="24.0" text="0" />
                   <Label layoutX="1150.0" layoutY="45.0" text="đơn" />
-                  <Button layoutX="500.0" layoutY="568.0" mnemonicParsing="false" onAction="#luuChange" prefHeight="36.0" prefWidth="107.0" text="Lưu thay đổi">
+                  <Button layoutX="456.0" layoutY="566.0" mnemonicParsing="false" onAction="#luuChange" prefHeight="36.0" prefWidth="180.0" text="Cập nhât đơn chờ xử lý">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <CheckBox fx:id="selectAllDonNop" layoutX="1109.0" layoutY="558.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="124.0" text="Chọn tất cả" />
-                  <Button layoutX="1013.0" layoutY="553.0" mnemonicParsing="false" onAction="#delete" prefHeight="31.0" prefWidth="88.0" text="Xóa" />
+                  <CheckBox fx:id="selectAllDonNop" layoutX="1110.0" layoutY="574.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="124.0" text="Chọn tất cả" />
+                  <Button layoutX="1000.0" layoutY="569.0" mnemonicParsing="false" onAction="#delete" prefHeight="31.0" prefWidth="88.0" text="Xóa" />
                </children>
             </AnchorPane>
             <Button layoutX="19.0" layoutY="293.0" mnemonicParsing="false" onAction="#button_thongKe_Quy" prefHeight="31.0" prefWidth="217.0" text="Thống kê của quý" />
