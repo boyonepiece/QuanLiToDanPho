@@ -205,7 +205,6 @@
                         <TableColumn fx:id="ngay_search" prefWidth="169.0" text="Ngày nhận đơn" />
                         <TableColumn fx:id="noidung_search" prefWidth="193.0" text="Nội dung phản ánh" />
                         <TableColumn fx:id="chitiet_search" prefWidth="214.0" text="Chi tiết" />
-                        <TableColumn fx:id="trangthai_search" prefWidth="146.0" text="Trạng thái" />
                      </columns>
                   </TableView>
                   <TextField fx:id="hoten" layoutX="152.0" layoutY="30.0" prefHeight="31.0" prefWidth="207.0" promptText="Họ tên" />

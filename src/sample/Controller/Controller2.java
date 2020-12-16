@@ -89,8 +89,6 @@ public class Controller2 {
     private TableColumn<DonPhanAnh,String> hoten_search,
             diachi_search,sdt_search,ngay_search,noidung_search,chitiet_search;
     @FXML
-    private TableColumn<DonPhanAnh, Boolean> trangthai_search;
-    @FXML
     private TableColumn<DonPhanAnh, Integer> stt_search;
 
     ObservableList<Integer> list_quy = FXCollections.observableArrayList(1, 2, 3, 4);
@@ -218,7 +216,7 @@ public class Controller2 {
         ngay_search.setCellValueFactory(new PropertyValueFactory<>("date"));
         noidung_search.setCellValueFactory(new PropertyValueFactory<>("classify"));
         chitiet_search.setCellValueFactory(new PropertyValueFactory<>("chiTiet"));
-        trangthai_search.setCellValueFactory(new PropertyValueFactory<>("remark"));
+        //trangthai_search.setCellValueFactory(new PropertyValueFactory<>("remark"));
         tableSearch.setItems(list1);
     }
 
