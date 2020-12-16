@@ -98,12 +98,24 @@ public class Database {
         return null;
     }
 
-    public String getIDPetition(String peopleID,String classify,String date) throws SQLException{
-        var query="SELECT ID_DON FROM DONPHANANH WHERE CMT=? AND NGAY=? AND PHANLOAI=?";
+    public String getIDPetition(String peopleID,String classify,String date,String content,int table) throws SQLException{
+        String nameTable="";
+        if(table==-1){
+            nameTable="DONMOINHAN";
+        }
+        else if(table==0){
+            nameTable="DONDANGCHOXULY";
+        }
+        else if(table==1){
+            nameTable="DONDAXULY";
+        }
+
+        var query="SELECT DPA.ID_DON FROM DONPHANANH DPA INNER JOIN "+nameTable+ " D ON DPA.ID_DON=D.ID_DON  WHERE CMT=? AND NGAY=? AND PHANLOAI=? AND NOIDUNGPHANANH=?";
         PreparedStatement pre=getConnection().prepareStatement(query);
         pre.setString(1,peopleID);
         pre.setString(2,date);
         pre.setNString(3,classify);
+        pre.setNString(4,content);
         ResultSet result=pre.executeQuery();
         if(result.next()){
             return result.getString(1);
@@ -130,7 +142,7 @@ public class Database {
     public String generatePetitionID(){
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
-        int targetStringLength = 5;
+        int targetStringLength = 6;
         Random random = new Random();
         StringBuilder buffer = new StringBuilder(targetStringLength);
         for (int i = 0; i < targetStringLength; i++) {
@@ -237,10 +249,10 @@ public class Database {
         return 0;
     }
 
-    public void deleteSpamPetition(String name,String phoneNumber,String day,String classify) throws SQLException{
+    public void deleteSpamPetition(String name,String phoneNumber,String day,String classify,String content) throws SQLException{
         String peopleID=getPeopleID(phoneNumber);
         int count=countPetitionFromPeopleID(peopleID);
-        String petitionID=getIDPetition(peopleID,classify,day);
+        String petitionID=getIDPetition(peopleID,classify,day,content,-1);
         if(count==1){
             deletePetition(petitionID);
             deleteUser(peopleID);
@@ -275,7 +287,7 @@ public class Database {
 
     public void confirmFromNewPetitionToPendingPetition(String phoneNumber,String date,String classify,String content,String sentDate) throws SQLException{
         String peopleID=getPeopleID(phoneNumber);
-        String petitionID=getIDPetition(peopleID,classify,date);
+        String petitionID=getIDPetition(peopleID,classify,date,content,-1);
         deletePetitionForUpdate(petitionID,1);
         insertPendingPetition(petitionID,content,sentDate);
     }
@@ -289,11 +301,10 @@ public class Database {
                                              String nameResponder,String organization,String contentResponse,
                                              String sentDate,String solvedDate ) throws SQLException {
         String peopleID=getPeopleID(phoneNumber);
-        String petitionID=getIDPetition(peopleID,classify,date);
+        String petitionID=getIDPetition(peopleID,classify,date,contentPetition,0);
         deletePetitionForUpdate(petitionID,2);
         insertSolvedPetition(petitionID,contentPetition,phoneNumberResponder,nameResponder,organization,contentResponse,sentDate,solvedDate);
     }
-
 
 
 
@@ -303,7 +314,7 @@ public class Database {
 
     public ResultSet getListPetitionSolved() throws SQLException{
         var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNGPHANANH " +
-                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT" +
+                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT " +
                 "INNER JOIN DONDAXULY D ON DPA.ID_DON=D.ID_DON ORDER BY NGAY DESC";
         PreparedStatement pre=getConnection().prepareStatement(query);
         return pre.executeQuery();
@@ -312,7 +323,7 @@ public class Database {
 
     public ResultSet getListPetitionUnsolved()throws SQLException{
         var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNGPHANANH " +
-                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT" +
+                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT " +
                 "INNER JOIN DONDANGCHOXULY D ON DPA.ID_DON=D.ID_DON ORDER BY NGAY DESC";
         PreparedStatement pre=getConnection().prepareStatement(query);
         return pre.executeQuery();
@@ -344,19 +355,18 @@ public class Database {
         else if(table==1){
             nameTable="DONDAXULY";
         }
-        int a=4*(quarterOfYear-1);
-        int b=4*quarterOfYear;
-        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG " +
-                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT" +
-                "INNER JOIN ? D ON DPA.ID_DON=D.ID_DON WHERE MONTH(NGAY) BETWEEN ? AND ? ORDER BY NGAY DESC";
+        int a=3*(quarterOfYear-1)+1;
+        int b=3*quarterOfYear;
+        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNGPHANANH \n" +
+                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT \n" +
+                "INNER JOIN " +nameTable+" D ON DPA.ID_DON=D.ID_DON WHERE MONTH(NGAY) BETWEEN ? AND ? ORDER BY NGAY DESC";
         PreparedStatement pre=getConnection().prepareStatement(query);
-        pre.setString(1,nameTable);
-        pre.setInt(2,a);
-        pre.setInt(3,b);
+        pre.setInt(1,a);
+        pre.setInt(2,b);
         return pre.executeQuery();
     }
 
-    public ResultSet getListPetitionFromNameAndPhoneNumber(String name,String phoneNumber,int table) throws SQLException{
+    public ResultSet searchPetition(String name, String phoneNumber, String day, String classify, int table) throws SQLException{
         String nameTable="";
         if(table==-1){
             nameTable="DONMOINHAN";
@@ -367,43 +377,42 @@ public class Database {
         else if(table==1){
             nameTable="DONDAXULY";
         }
+        int count=0;
+        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNGPHANANH " +
+                "FROM NGUOIPHANANH N INNER JOIN DONPHANANH DPA ON N.CMT=DPA.CMT " +
+                "INNER JOIN "+nameTable+" D ON DPA.ID_DON=D.ID_DON WHERE ";
+        if(name.length()!=0){
+            query+=" TEN= N'"+ name+"'";
+            count++;
+        }
 
-        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG " +
-                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT" +
-                "INNER JOIN ? D ON DPA.ID_DON=D.ID_DON WHERE MONTH(NGAY) BETWEEN ? AND ? ORDER BY NGAY DESC";
+        if(phoneNumber.length()!=0){
+            if(count!=0){
+                query+=" AND ";
+            }
+            query+=" DIENTHOAI='"+phoneNumber+"'";
+            count++;
+        }
+
+        if(day.length()!=0){
+            if(count!=0){
+                query+=" AND ";
+            }
+            query+=" NGAY='"+day+"'";
+            count++;
+        }
+
+        if(classify.length()!=0){
+            if(count!=0){
+                query+=" AND ";
+            }
+            query+=" PHANLOAI=N'"+classify+"'";
+        }
+
         PreparedStatement pre=getConnection().prepareStatement(query);
-        pre.setString(1,nameTable);
-        pre.setString(2,name);
-        pre.setString(3,phoneNumber);
-        return pre.executeQuery();
+        ResultSet resultSet=pre.executeQuery();
+        return resultSet;
     }
 
-    public ResultSet getListPetitionFromPeopleIDAndPhoneNumber(String peopleID,String phoneNumber,int table) throws SQLException{
-        String id=getPeopleID(phoneNumber);
-        if(id==null){
-            return null;
-        }
-        if(!new HashID().checkPeopleIDExist(peopleID, id)){
-            return null;
-        }
-        String nameTable="";
-        if(table==-1){
-            nameTable="DONMOINHAN";
-        }
-        else if(table==0){
-            nameTable="DONDANGCHOXULY";
-        }
-        else if(table==1){
-            nameTable="DONDAXULY";
-        }
 
-        var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNG " +
-                "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT" +
-                "INNER JOIN ? D ON DPA.ID_DON=D.ID_DON WHERE CMT=? AND DIENTHOAI=?";
-        PreparedStatement pre=getConnection().prepareStatement(query);
-        pre.setString(1,nameTable);
-        pre.setString(2,id);
-        pre.setString(3,phoneNumber);
-        return pre.executeQuery();
-    }
 }

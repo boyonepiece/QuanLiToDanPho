@@ -98,7 +98,7 @@ public class Controller_Requested {
     ObservableList<String> list_Trangthai = FXCollections.observableArrayList("Mới ghi nhận", "Chưa giải quyết", "Đã giải quyết");
 
     //button Nộp đơn
-    public void button_donNop(ActionEvent e){
+    public void button_donNop(){
         this.donNop.setVisible(true);
         this.ds_MoiNhan.setVisible(false);
         this.ds_XuLi.setVisible(false);
@@ -107,7 +107,7 @@ public class Controller_Requested {
     }
 
     //button danh sách các đơn mới ghi nhận
-    public void button_ds_MoiNhan(ActionEvent e) throws SQLException {
+    public void button_ds_MoiNhan() throws SQLException {
         this.donNop.setVisible(false);
         this.ds_MoiNhan.setVisible(true);
         this.ds_XuLi.setVisible(false);
@@ -284,7 +284,6 @@ public class Controller_Requested {
 
             showAlter();
         }
-
         database = null;
 
 
@@ -379,15 +378,16 @@ public class Controller_Requested {
             }
         }
         showAlter();
+        button_ds_MoiNhan();
     }
 
     public void delete(ActionEvent actionEvent) throws SQLException {
         Database database = new Database();
         for(DonPhanAnh donPhanAnh : list){
             if(donPhanAnh.getRemark().isSelected()){
-                database.deleteSpamPetition(donPhanAnh.getName(),donPhanAnh.getPhoneNumber(),donPhanAnh.getDate(),donPhanAnh.getClassify());
-
+                database.deleteSpamPetition(donPhanAnh.getName(),donPhanAnh.getPhoneNumber(),donPhanAnh.getDate(),donPhanAnh.getClassify(),donPhanAnh.getChiTiet());
             }
         }
+        button_ds_MoiNhan();
     }
 }

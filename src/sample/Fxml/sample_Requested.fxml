@@ -79,6 +79,7 @@
             </Label>
             <Separator layoutX="246.0" layoutY="85.0" orientation="VERTICAL" prefHeight="677.0" prefWidth="5.0" />
             <ScrollPane fx:id="donNop" hbarPolicy="NEVER" layoutX="413.0" layoutY="105.0" prefHeight="655.0" prefWidth="764.0" visible="false">
+
                <content>
                   <AnchorPane prefHeight="653.0" prefWidth="763.0">
                      <children>
@@ -168,10 +169,12 @@
                               <Font size="16.0" />
                            </font></Text>
                         <TextArea fx:id="chiTiet" layoutX="94.0" layoutY="368.0" prefHeight="222.0" prefWidth="481.0" />
+
                         <Button layoutX="295.0" layoutY="602.0" mnemonicParsing="false" onAction="#luuLai" prefHeight="42.0" prefWidth="90.0" text="Lưu lại">
                            <font>
                               <Font size="19.0" />
                            </font></Button>
+
                         <TextField fx:id="noiDungKhac" layoutX="348.0" layoutY="293.0" prefHeight="31.0" prefWidth="213.0" />
                         <Button layoutX="509.0" layoutY="23.0" mnemonicParsing="false" onAction="#changeHasInfo" text="Đã có thông tin">
                            <font>
@@ -229,13 +232,15 @@
                   <Label layoutX="1065.0" layoutY="45.0" prefHeight="21.0" prefWidth="71.0" text="Tổng số: " />
                   <Label fx:id="allDon" alignment="CENTER_RIGHT" layoutX="1116.0" layoutY="45.0" prefHeight="21.0" prefWidth="24.0" text="0" />
                   <Label layoutX="1150.0" layoutY="45.0" text="đơn" />
-                  <Button layoutX="500.0" layoutY="568.0" mnemonicParsing="false" onAction="#luuChange" prefHeight="38.0" prefWidth="120.0" text="Lưu thay đổi">
+
+                  <Button layoutX="456.0" layoutY="566.0" mnemonicParsing="false" onAction="#luuChange" prefHeight="36.0" prefWidth="180.0" text="Cập nhât đơn chờ xử lý">
+
                      <font>
                         <Font size="17.0" />
                      </font>
                   </Button>
-                  <CheckBox fx:id="selectAllDonNop" layoutX="1109.0" layoutY="558.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="124.0" text="Chọn tất cả" />
-                  <Button layoutX="1013.0" layoutY="553.0" mnemonicParsing="false" onAction="#delete" prefHeight="31.0" prefWidth="88.0" text="Xóa" />
+                  <CheckBox fx:id="selectAllDonNop" layoutX="1110.0" layoutY="574.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="124.0" text="Chọn tất cả" />
+                  <Button layoutX="1000.0" layoutY="569.0" mnemonicParsing="false" onAction="#delete" prefHeight="31.0" prefWidth="88.0" text="Xóa" />
                </children>
             </AnchorPane>
             <Button layoutX="92.0" layoutY="475.0" mnemonicParsing="false" onAction="#button_thongKe_Quy" prefHeight="80.0" prefWidth="144.0" text="Thống kê của quý" textAlignment="CENTER" wrapText="true">
