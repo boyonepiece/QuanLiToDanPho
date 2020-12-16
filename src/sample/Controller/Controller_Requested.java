@@ -26,7 +26,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Controller2 {
+public class Controller_Requested {
 
     @FXML
     private TextArea chiTiet;
@@ -166,7 +166,7 @@ public class Controller2 {
 
     //nút "Trang chủ" để quay lại trang ban đầu sau khi đăng nhập
     public void pressButtonHome(ActionEvent e) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../Fxml/sample1.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../Fxml/sample_Home.fxml"));
         Stage window = (Stage)((Node) e.getSource()).getScene().getWindow();
         Scene scene = new Scene(root,1529,900);
         //window.getIcons().add(new Image(getClass().getResourceAsStream("../book.png")));

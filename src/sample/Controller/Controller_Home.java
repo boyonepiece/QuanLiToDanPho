@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Controller1 {
+public class Controller_Home {
     @FXML
     private Label soHo;
     @FXML
@@ -41,6 +41,8 @@ public class Controller1 {
         update.setVisible(false);
         ds_CanBo.setVisible(false);
         save.setVisible(true);
+        so_Ho.setText("");
+        so_NhanKhau.setText("");
         so_Ho.setPromptText(soHo.getText());
         so_NhanKhau.setPromptText(soNhanKhau.getText());
         so_Ho.setVisible(true);
@@ -64,9 +66,9 @@ public class Controller1 {
 
     //sự kiện nhấn chức năng 6
     public void pressButton6(ActionEvent e) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../Fxml/sample2.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../Fxml/sample_Requested.fxml"));
         Stage window = (Stage)((Node) e.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root,1529,900);
+        Scene scene = new Scene(root,1520,790);
         //window.getIcons().add(new Image(getClass().getResourceAsStream("../book.png")));
         window.setTitle("Quản lý thông tin tổ dân phố");
         window.setX(0);
@@ -77,12 +79,12 @@ public class Controller1 {
 
     //sự kiện nhấn nút đăng xuất
     public void pressButtonOut(ActionEvent e) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../Fxml/sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../Fxml/sample_Login.fxml"));
         Stage window = (Stage)((Node) e.getSource()).getScene().getWindow();
         Scene scene = new Scene(root,600,400);
         //window.getIcons().add(new Image(getClass().getResourceAsStream("../book.png")));
-        window.setX(600);
-        window.setY(300);
+        window.setX(450);
+        window.setY(200);
         window.setTitle("Quản lý thông tin tổ dân phố");
         window.setScene(scene);
         window.show();

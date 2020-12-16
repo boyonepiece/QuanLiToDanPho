@@ -18,7 +18,7 @@ import sample.Database;
 
 import java.io.IOException;
 
-public class Controller {
+public class Controller_Login {
     @FXML
     private TextField Taikhoan;
     @FXML
@@ -48,14 +48,13 @@ public class Controller {
 
     //sự kiện nhấn nút "Đăng nhập" để vào Trang chủ
     public void setSceneHome(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../Fxml/sample1.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../Fxml/sample_Home.fxml"));
         Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root,1529,900);
+        Scene scene = new Scene(root,1520,790);
         //window.getIcons().add(new Image(getClass().getResourceAsStream("../book.png")));
         window.setTitle("Quản lý thông tin tổ dân phố");
         window.setX(0);
         window.setY(0);
-        window.setFullScreen(false);
         window.setScene(scene);
         window.show();
         window.setOnCloseRequest(new EventHandler<WindowEvent>() {
