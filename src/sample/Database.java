@@ -16,7 +16,7 @@ public class Database {
         this.driveName="com.microsoft.sqlserver.jdbc.SQLServerDriver";
         this.url="jdbc:sqlserver://localhost:1433;databaseName=DANPHO";
         this.username="sa";
-        this.password="123456";
+        this.password="09042000";
         this.connection=createConnection();
     }
     public Connection createConnection(){
