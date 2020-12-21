@@ -127,7 +127,10 @@ public class Controller_Requested {
     }
 
     //button tìm kiếm
-    public void button_timKiem(ActionEvent e){
+    public void button_timKiem(){
+        //this.tableSearch = new TableView();
+        ObservableList<DonPhanAnh> list1 = FXCollections.observableArrayList();
+        this.tableSearch.setItems(list1);
         this.donNop.setVisible(false);
         this.ds_MoiNhan.setVisible(false);
         this.ds_XuLi.setVisible(false);
@@ -177,17 +180,18 @@ public class Controller_Requested {
 
     //chức năng tìm kiếm
     public void search() throws SQLException{
-        /*String ho_ten = hoten.getText();
+        String ho_ten = hoten.getText();
         String so_dien_thoai = sdt.getText();
         String _ngay = ngay.getText();
-        String noidung = tim_Noidung.getValue().toString();
+        String noidung = "";
+        if(tim_Noidung.getValue() != null) noidung = tim_Noidung.getValue().toString();
         String trangthai = tim_Trangthai.getValue().toString();
         int tt = -2;
         if(trangthai == "Mới ghi nhận") tt = -1;
         else if(trangthai == "Chưa giải quyết") tt = 0;
         else if(trangthai == "Đã giải quyết") tt = 1;
         Database database = new Database();
-        ResultSet newPetition = database.getListPetitionFromTheCondition(ho_ten, so_dien_thoai, _ngay, noidung, tt);
+        ResultSet newPetition = database.searchPetition(ho_ten, so_dien_thoai, _ngay, noidung, tt);
         ArrayList<DonPhanAnh> list = new ArrayList<DonPhanAnh>();
         int i=0;
         while(newPetition.next()){
@@ -197,7 +201,7 @@ public class Controller_Requested {
             String phone = newPetition.getString("DIENTHOAI");
             String day = newPetition.getString("NGAY");
             String classify = newPetition.getString("PHANLOAI");
-            String noiDung = newPetition.getString("NOIDUNG");
+            String noiDung = newPetition.getString("NOIDUNGPHANANH");
             donPhanAnh = new DonPhanAnh(name,address,phone,day,
                     classify,noiDung,i+1,false);
             list.add(donPhanAnh);
@@ -217,8 +221,8 @@ public class Controller_Requested {
         ngay_search.setCellValueFactory(new PropertyValueFactory<>("date"));
         noidung_search.setCellValueFactory(new PropertyValueFactory<>("classify"));
         chitiet_search.setCellValueFactory(new PropertyValueFactory<>("chiTiet"));
-        trangthai_search.setCellValueFactory(new PropertyValueFactory<>("remark"));
-        tableSearch.setItems(list1);*/
+        //trangthai_search.setCellValueFactory(new PropertyValueFactory<>("remark"));
+        tableSearch.setItems(list1);
     }
 
     public String getClassify(){
