@@ -6,6 +6,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -16,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sample.Database;
 import sample.Entity.DonPhanAnh;
@@ -178,6 +180,59 @@ public class Controller_Requested {
         window.show();
     }
 
+    //chức năng gộp đơn
+    public void group(ActionEvent e) throws IOException {
+        AnchorPane group = new AnchorPane();
+
+        Label label1 = new Label("Chi tiết của nhóm đơn:");
+        label1.setFont(new Font("System",18));
+        label1.setLayoutX(45);
+        label1.setLayoutY(40);
+
+        TextArea textArea = new TextArea();
+        textArea.setWrapText(true);
+        textArea.setLayoutX(45);
+        textArea.setLayoutY(85);
+        textArea.setPrefSize(500,230);
+
+        Button button = new Button("Cập nhật đơn chờ xử lí");
+        button.setLayoutX(210);
+        button.setLayoutY(340);
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Database database = new Database();
+                for(DonPhanAnh donPhanAnh : list){
+                    if(donPhanAnh.getRemark().isSelected()){
+                        LocalDate date1 = LocalDate.now();
+                        String currDate =  date1.toString();
+                        try {
+                            database.confirmFromNewPetitionToPendingPetition(donPhanAnh.getPhoneNumber(),donPhanAnh.getDate(),
+                                    donPhanAnh.getClassify(),donPhanAnh.getChiTiet(),currDate);
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+                    }
+                }
+                showAlter();
+                try {
+                    button_ds_MoiNhan();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        });
+
+        group.getChildren().add(label1);
+        group.getChildren().add(textArea);
+        group.getChildren().add(button);
+        Scene scene = new Scene(group,600,400);
+        Stage group1 = new Stage();
+        group1.setTitle("Gộp nhóm đơn");
+        group1.setScene(scene);
+
+        group1.show();
+    }
     //chức năng tìm kiếm
     public void search() throws SQLException{
         String ho_ten = hoten.getText();
