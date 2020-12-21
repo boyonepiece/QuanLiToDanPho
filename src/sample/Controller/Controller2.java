@@ -35,7 +35,7 @@ public class Controller2 {
     private AnchorPane ds_MoiNhan;
     //donNop
     @FXML
-    private TextField hoTen, diaChi, SDT1,SDT2, noiDungKhac;
+    private TextField hoTen, diaChi, SDT1,SDT2, noiDungKhac, Year;
     @FXML
     PasswordField cmt1,cmt2;
     @FXML
@@ -51,6 +51,21 @@ public class Controller2 {
     @FXML
     private TableColumn<DonPhanAnh,String> colName,
             colAddress,colPhone,colDate,colClassify,colNoiDung;
+
+    @FXML
+    private TableColumn<DonPhanAnh,String> colName1,
+            colAddress1,colPhone1,colDate1,colClassify1,colNoiDung1;
+    @FXML
+    private TableColumn<DonPhanAnh,Boolean>colState1;
+    @FXML
+    private TableColumn<DonPhanAnh,Integer> colSTT1;
+    @FXML
+    private TableColumn<DonPhanAnh,String> colName2,
+            colAddress2,colPhone2,colDate2,colClassify2,colNoiDung2;
+    @FXML
+    private TableColumn<DonPhanAnh,Boolean>colState2;
+    @FXML
+    private TableColumn<DonPhanAnh,Integer> colSTT2;
     @FXML
     private TableColumn<DonPhanAnh,Boolean>colState;
     @FXML
@@ -58,7 +73,15 @@ public class Controller2 {
     @FXML
     private TableView tableNewList;
     @FXML
+    private TableView tableWaitingList;
+    @FXML
+    private TableView tableViewQuarterOfYear;
+    @FXML
     private Label allDon;
+    @FXML
+    private Label allDon1;
+    @FXML
+    private Label allDon2;
     @FXML
     private CheckBox selectAllDonNop;
 
@@ -77,6 +100,8 @@ public class Controller2 {
     public ComboBox tim_Noidung;
     @FXML
     public ComboBox tim_Trangthai;
+    @FXML
+    public ComboBox<String> Tim_TrangthaiQuy;
     @FXML
     private TextField hoten;
     @FXML
@@ -107,7 +132,7 @@ public class Controller2 {
     }
 
     //button danh sách các đơn mới ghi nhận
-    public void button_ds_MoiNhan(ActionEvent e) throws SQLException {
+    public void button_ds_MoiNhan() throws SQLException {
         this.donNop.setVisible(false);
         this.ds_MoiNhan.setVisible(true);
         this.ds_XuLi.setVisible(false);
@@ -118,12 +143,14 @@ public class Controller2 {
     }
 
     //button danh sách đơn đang xử lí
-    public void button_ds_XuLi(ActionEvent e){
+    public void button_ds_XuLi(ActionEvent e) throws SQLException {
         this.donNop.setVisible(false);
         this.ds_MoiNhan.setVisible(false);
         this.ds_XuLi.setVisible(true);
         this.timKiem.setVisible(false);
         this.thongKe_Quy.setVisible(false);
+
+        donDangXuli();
     }
 
     //button tìm kiếm
@@ -145,6 +172,17 @@ public class Controller2 {
         this.timKiem.setVisible(false);
         this.thongKe_Quy.setVisible(true);
         quy.setItems(list_quy);
+        Tim_TrangthaiQuy.setItems(list_Trangthai);
+
+    }
+    public void buttonShow(ActionEvent e) throws SQLException {
+        int QuarterOfYear = (int)quy.getValue();
+        String value = Tim_TrangthaiQuy.getValue();
+        int table;
+        if (value.equals("Mới ghi nhận")) table = -1;
+        else if (value.equals("Chưa giải quyết")) table = 0;
+        else table = 1;
+        listQuarterOfYear(QuarterOfYear, table);
     }
 
     //Xử lí nút Close ứng dụng
@@ -385,9 +423,105 @@ public class Controller2 {
         Database database = new Database();
         for(DonPhanAnh donPhanAnh : list){
             if(donPhanAnh.getRemark().isSelected()){
+                System.out.println(donPhanAnh.getName()+" "+donPhanAnh.getPhoneNumber()+" "+donPhanAnh.getDate()+" "+donPhanAnh.getClassify());
                 database.deleteSpamPetition(donPhanAnh.getName(),donPhanAnh.getPhoneNumber(),donPhanAnh.getDate(),donPhanAnh.getClassify());
 
             }
         }
+        button_ds_MoiNhan();
     }
+    // Hien thi danh sach dang xu li.
+    ObservableList<DonPhanAnh> list1;
+    public void donDangXuli() throws SQLException {
+
+
+        colSTT1.setCellValueFactory(new PropertyValueFactory<>("stt"));
+        colName1.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colAddress1.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colPhone1.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        colDate1.setCellValueFactory(new PropertyValueFactory<>("date"));
+        colClassify1.setCellValueFactory(new PropertyValueFactory<>("classify"));
+        colNoiDung1.setCellValueFactory(new PropertyValueFactory<>("chiTiet"));
+        colState1.setCellValueFactory(new PropertyValueFactory<>("remark"));
+        list1 = getListWaiting();
+
+        tableWaitingList.setItems(list1);
+    }
+
+    private ObservableList<DonPhanAnh> getListWaiting() throws SQLException {
+        Database database = new Database();
+        ResultSet PetitionWaiting = database.getListPetitionUnsolved();
+        ArrayList<DonPhanAnh> list = new ArrayList<DonPhanAnh>();
+        int i=0;
+        while(PetitionWaiting.next()){
+            DonPhanAnh donPhanAnh;
+            String name = PetitionWaiting.getString("TEN");
+            String address = PetitionWaiting.getString("NOISONG");
+            String phone = PetitionWaiting.getString("DIENTHOAI");
+            String day = PetitionWaiting.getString("NGAY");
+            String classify = PetitionWaiting.getString("PHANLOAI");
+            String noiDung = PetitionWaiting.getString("NOIDUNGPHANANH");
+            donPhanAnh = new DonPhanAnh(name,address,phone,day,
+                    classify,noiDung,i+1,false);
+            list.add(donPhanAnh);
+            i++;
+        }
+        ObservableList<DonPhanAnh> list2 = FXCollections.observableArrayList();
+        int size = list.size();
+        for(int k=0;k<size;k++){
+            list2.add(list.get(k));
+        }
+        allDon1.setText(String.valueOf(size));
+        return list2;
+    }
+
+    // Hien thi thong ke theo quy
+    public void listQuarterOfYear(int Quarter, int table) throws SQLException {
+        ObservableList<DonPhanAnh> list1;
+
+        colSTT2.setCellValueFactory(new PropertyValueFactory<>("stt"));
+        colName2.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colAddress2.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colPhone2.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        colDate2.setCellValueFactory(new PropertyValueFactory<>("date"));
+        colClassify2.setCellValueFactory(new PropertyValueFactory<>("classify"));
+        colNoiDung2.setCellValueFactory(new PropertyValueFactory<>("chiTiet"));
+
+
+        colState2.setCellValueFactory(new PropertyValueFactory<>("remark"));
+        list1 = getListQuarterOfYear(Quarter, table);
+
+        tableViewQuarterOfYear.setItems(list1);
+    }
+
+    private ObservableList<DonPhanAnh> getListQuarterOfYear(int quarter, int table) throws SQLException {
+        Database database = new Database();
+        ResultSet PetitionWaiting = database.getListPetitionForQuarterOfYear(quarter, table);
+        ArrayList<DonPhanAnh> list = new ArrayList<DonPhanAnh>();
+        int i=0;
+        while(PetitionWaiting.next()){
+            DonPhanAnh donPhanAnh;
+            String name = PetitionWaiting.getString("TEN");
+            String address = PetitionWaiting.getString("NOISONG");
+            String phone = PetitionWaiting.getString("DIENTHOAI");
+            String day = PetitionWaiting.getString("NGAY");
+            String classify = PetitionWaiting.getString("PHANLOAI");
+            String noiDung = PetitionWaiting.getString("NOIDUNGPHANANH");
+           // Boolean state = PetitionWaiting.getBoolean("TRANGTHAI");
+            donPhanAnh = new DonPhanAnh(name,address,phone,day,
+                    classify,noiDung,i+1,false);
+            list.add(donPhanAnh);
+            i++;
+        }
+        ObservableList<DonPhanAnh> list2 = FXCollections.observableArrayList();
+        int size = list.size();
+        for(int k=0;k<size;k++){
+            list2.add(list.get(k));
+        }
+        allDon2.setText(String.valueOf(size));
+        return list2;
+    }
+
+
+
 }

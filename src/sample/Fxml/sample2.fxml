@@ -66,7 +66,7 @@
                </font>
             </Label>
             <Separator layoutX="235.0" layoutY="86.0" orientation="VERTICAL" prefHeight="777.0" prefWidth="10.0" />
-            <ScrollPane fx:id="donNop" hbarPolicy="NEVER" layoutX="414.0" layoutY="106.0" prefHeight="693.0" prefWidth="738.0">
+            <ScrollPane fx:id="donNop" hbarPolicy="NEVER" layoutX="414.0" layoutY="106.0" prefHeight="693.0" prefWidth="738.0" visible="false">
                <content>
                   <AnchorPane prefHeight="687.0" prefWidth="720.0">
                      <children>
@@ -172,21 +172,21 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TableView layoutX="-19.0" layoutY="80.0" prefHeight="459.0" prefWidth="1234.0">
+                  <TableView fx:id="tableWaitingList" layoutX="-19.0" layoutY="80.0" prefHeight="459.0" prefWidth="1234.0">
                      <columns>
-                        <TableColumn prefWidth="60.0" text="STT" />
-                        <TableColumn prefWidth="191.0" text="Họ tên" />
-                        <TableColumn prefWidth="117.0" text="Địa chỉ" />
-                        <TableColumn prefWidth="144.0" text="SĐT" />
-                        <TableColumn prefWidth="169.0" text="Ngày nhận đơn" />
-                        <TableColumn prefWidth="193.0" text="Nội dung phản ánh" />
-                        <TableColumn prefWidth="214.0" text="Chi tiết" />
-                        <TableColumn prefWidth="146.0" text="Trạng thái" />
+                        <TableColumn fx:id="colSTT1" prefWidth="60.0" text="STT" />
+                        <TableColumn fx:id="colName1" prefWidth="191.0" text="Họ tên" />
+                        <TableColumn fx:id="colAddress1" prefWidth="117.0" text="Địa chỉ" />
+                        <TableColumn fx:id="colPhone1" prefWidth="144.0" text="SĐT" />
+                        <TableColumn fx:id="colDate1" prefWidth="169.0" text="Ngày nhận đơn" />
+                        <TableColumn fx:id="colClassify1" prefWidth="193.0" text="Nội dung phản ánh" />
+                        <TableColumn fx:id="colNoiDung1" prefWidth="214.0" text="Chi tiết" />
+                        <TableColumn fx:id="colState1" prefWidth="146.0" text="Trạng thái" />
                      </columns>
                   </TableView>
                   <Label layoutX="1065.0" layoutY="45.0" prefHeight="21.0" prefWidth="71.0" text="Tổng số: " />
-                  <Label alignment="CENTER_RIGHT" layoutX="1116.0" layoutY="45.0" prefHeight="21.0" prefWidth="24.0" text="0" />
                   <Label layoutX="1150.0" layoutY="45.0" text="đơn" />
+                  <Label fx:id="allDon1" alignment="CENTER_RIGHT" layoutX="1116.0" layoutY="45.0" prefHeight="21.0" prefWidth="24.0" text="0" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="timKiem" layoutX="265.0" layoutY="114.0" prefHeight="722.0" prefWidth="1400.0" visible="false">
@@ -216,31 +216,31 @@
                   <ComboBox fx:id="tim_Trangthai" layoutX="961.0" layoutY="28.0" prefWidth="150.0" promptText="Trạng thái" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="thongKe_Quy" layoutX="265.0" layoutY="114.0" prefHeight="722.0" prefWidth="1400.0" visible="false">
+            <AnchorPane fx:id="thongKe_Quy" layoutX="265.0" layoutY="114.0" prefHeight="722.0" prefWidth="1400.0">
                <children>
                   <Label layoutX="52.0" layoutY="25.0" prefHeight="35.0" prefWidth="175.0" text="Thống kê quý :">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <TableView layoutX="-19.0" layoutY="80.0" prefHeight="459.0" prefWidth="1234.0">
+                  <TableView fx:id="tableViewQuarterOfYear" layoutX="-19.0" layoutY="80.0" prefHeight="459.0" prefWidth="1234.0">
                      <columns>
-                        <TableColumn prefWidth="60.0" text="STT" />
-                        <TableColumn prefWidth="191.0" text="Họ tên" />
-                        <TableColumn prefWidth="117.0" text="Địa chỉ" />
-                        <TableColumn prefWidth="144.0" text="SĐT" />
-                        <TableColumn prefWidth="169.0" text="Ngày nhận đơn" />
-                        <TableColumn prefWidth="193.0" text="Nội dung phản ánh" />
-                        <TableColumn prefWidth="214.0" text="Chi tiết" />
-                        <TableColumn prefWidth="146.0" text="Trạng thái" />
+                        <TableColumn fx:id="colSTT2" prefWidth="60.0" text="STT" />
+                        <TableColumn fx:id="colName2" prefWidth="191.0" text="Họ tên" />
+                        <TableColumn fx:id="colAddress2" prefWidth="117.0" text="Địa chỉ" />
+                        <TableColumn fx:id="colPhone2" prefWidth="144.0" text="SĐT" />
+                        <TableColumn fx:id="colDate2" prefWidth="169.0" text="Ngày nhận đơn" />
+                        <TableColumn fx:id="colClassify2" prefWidth="193.0" text="Nội dung phản ánh" />
+                        <TableColumn fx:id="colNoiDung2" prefWidth="214.0" text="Chi tiết" />
+                        <TableColumn fx:id="colState2" prefWidth="146.0" text="Trạng thái" />
                      </columns>
                   </TableView>
-                  <TextField layoutX="307.0" layoutY="29.0" prefHeight="31.0" prefWidth="88.0" promptText="Năm" />
-                  <Button layoutX="416.0" layoutY="29.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="75.0" text="Xem" />
+                  <Button layoutX="490.0" layoutY="27.0" mnemonicParsing="false" onAction="#buttonShow" prefHeight="31.0" prefWidth="75.0" text="Xem" />
                   <ComboBox fx:id="quy" layoutX="216.0" layoutY="29.0" prefHeight="31.0" prefWidth="81.0" promptText="Quý" />
                   <Label layoutX="1065.0" layoutY="45.0" prefHeight="21.0" prefWidth="71.0" text="Tổng số: " />
-                  <Label alignment="CENTER_RIGHT" layoutX="1116.0" layoutY="45.0" prefHeight="21.0" prefWidth="24.0" text="0" />
+                  <Label fx:id="allDon2" alignment="CENTER_RIGHT" layoutX="1116.0" layoutY="45.0" prefHeight="21.0" prefWidth="24.0" text="0" />
                   <Label layoutX="1150.0" layoutY="45.0" text="đơn" />
+                  <ComboBox fx:id="Tim_TrangthaiQuy" layoutX="317.0" layoutY="28.0" prefHeight="32.0" prefWidth="156.0" promptText="Trạng thái đơn" />
                </children>
             </AnchorPane>
          </children>
