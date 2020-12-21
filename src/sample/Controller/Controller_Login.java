@@ -66,6 +66,25 @@ public class Controller_Login {
         });
     }
 
+    public void setScene_Client(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../Fxml/sample_Client.fxml"));
+        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root,1520,790);
+        //window.getIcons().add(new Image(getClass().getResourceAsStream("../book.png")));
+        window.setTitle("Quản lý thông tin tổ dân phố");
+        window.setX(0);
+        window.setY(0);
+        window.setScene(scene);
+        window.show();
+        window.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
+    }
+
     //Hiển thị khi thông tin đăng nhập sai
     public void Error(){
         this.target.setFill(Color.RED);

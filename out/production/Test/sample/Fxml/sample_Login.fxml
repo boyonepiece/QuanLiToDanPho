@@ -65,5 +65,10 @@
             <Font name="Rage Italic" size="26.0" />
          </font>
       </Label>
+      <Hyperlink layoutX="130.0" layoutY="363.0" onAction="#setScene_Client" text="Đăng nhập với tư cách Khách...">
+         <font>
+            <Font name="System Italic" size="13.0" />
+         </font>
+      </Hyperlink>
    </children>
 </AnchorPane>

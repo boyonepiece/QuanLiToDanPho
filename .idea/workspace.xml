@@ -20,20 +20,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a3d263-da3c-41f0-96c3-701953dabc35" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/mssql_jdbc_8_4_0_jre14.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/photo/home(1).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/Controller/Controller_Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sample/Fxml/sample_Client.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller_Requested$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller_Requested$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller_Requested.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller_Requested.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/sample/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Test/sample/Database.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/sample/Fxml/sample_Requested.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Test/sample/Fxml/sample_Requested.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Controller/Controller_Requested.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller/Controller_Requested.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Fxml/sample_Requested.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Fxml/sample_Requested.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller_Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller_Login.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Test/sample/Fxml/sample_Home.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Test/sample/Fxml/sample_Home.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Test/sample/Fxml/sample_Login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Test/sample/Fxml/sample_Login.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/photo/home (1).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Controller/Controller_Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller/Controller_Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Fxml/sample_Home.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Fxml/sample_Home.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Fxml/sample_Login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Fxml/sample_Login.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +40,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Class" />
         <option value="FxmlFile" />
       </list>
     </option>
