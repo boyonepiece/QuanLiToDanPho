@@ -229,128 +229,129 @@
 
                         <Button layoutX="519.0" layoutY="566.0" mnemonicParsing="false" onAction="#luuChange" prefHeight="38.0" prefWidth="208.0" text="Cập nhât đơn chờ xử lý">
 
-                            <font>
-                                <Font size="17.0" />
-                            </font>
-                        </Button>
-                        <CheckBox fx:id="selectAllDonNop" layoutX="1110.0" layoutY="574.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="124.0" text="Chọn tất cả" />
-                        <Button layoutX="1000.0" layoutY="569.0" mnemonicParsing="false" onAction="#delete" prefHeight="31.0" prefWidth="88.0" text="Xóa" />
-                        <Button layoutX="888.0" layoutY="570.0" mnemonicParsing="false" onAction="#group" text="Nhóm đơn" />
-                    </children>
-                </AnchorPane>
-                <Button layoutX="92.0" layoutY="475.0" mnemonicParsing="false" onAction="#button_thongKe_Quy" prefHeight="80.0" prefWidth="144.0" text="Thống kê của quý" textAlignment="CENTER" wrapText="true">
-                    <font>
-                        <Font size="18.0" />
-                    </font></Button>
-                <AnchorPane fx:id="ds_XuLi" layoutX="265.0" layoutY="114.0" prefHeight="722.0" prefWidth="1400.0" visible="false">
-                    <children>
-                        <Label layoutX="57.0" layoutY="21.0" prefHeight="35.0" prefWidth="324.0" text="Danh sách đơn đang chờ xử lí">
-                            <font>
-                                <Font size="24.0" />
-                            </font>
-                        </Label>
-                        <TableView fx:id="tableWaitingList" layoutX="-19.0" layoutY="80.0" prefHeight="459.0" prefWidth="1234.0">
-                            <columns>
-                                <TableColumn fx:id="colSTT1" prefWidth="60.0" text="STT" />
-                                <TableColumn fx:id="colName1" prefWidth="191.0" text="Họ tên" />
-                                <TableColumn fx:id="colAddress1" prefWidth="117.0" text="Địa chỉ" />
-                                <TableColumn fx:id="colPhone1" prefWidth="144.0" text="SĐT" />
-                                <TableColumn fx:id="colDate1" prefWidth="169.0" text="Ngày nhận đơn" />
-                                <TableColumn fx:id="colClassify1" prefWidth="193.0" text="Nội dung phản ánh" />
-                                <TableColumn fx:id="colNoiDung1" prefWidth="214.0" text="Chi tiết" />
-                                <TableColumn fx:id="colState1" prefWidth="146.0" text="Trạng thái" />
-                            </columns>
-                        </TableView>
-                        <Label layoutX="1065.0" layoutY="45.0" prefHeight="21.0" prefWidth="71.0" text="Tổng số: " />
-                        <Label layoutX="1150.0" layoutY="45.0" text="đơn" />
-                        <Label fx:id="allDon1" alignment="CENTER_RIGHT" layoutX="1116.0" layoutY="45.0" prefHeight="21.0" prefWidth="24.0" text="0" />
-                    </children>
-                </AnchorPane>
-                <AnchorPane fx:id="timKiem" layoutX="265.0" layoutY="114.0" prefHeight="645.0" prefWidth="1254.0" visible="false">
-                    <children>
-                        <Label layoutX="31.0" layoutY="26.0" text="Tìm kiếm:">
-                            <font>
-                                <Font size="24.0" />
-                            </font>
-                        </Label>
-                        <TableView fx:id="tableSearch" layoutX="7.0" layoutY="80.0" prefHeight="459.0" prefWidth="1232.0">
-                            <columns>
-                                <TableColumn fx:id="stt_search" prefWidth="60.0" text="STT" />
-                                <TableColumn fx:id="hoten_search" prefWidth="191.0" text="Họ tên" />
-                                <TableColumn fx:id="diachi_search" prefWidth="117.0" text="Địa chỉ" />
-                                <TableColumn fx:id="sdt_search" prefWidth="144.0" text="SĐT" />
-                                <TableColumn fx:id="ngay_search" prefWidth="169.0" text="Ngày nhận đơn" />
-                                <TableColumn fx:id="noidung_search" prefWidth="193.0" text="Nội dung phản ánh" />
-                                <TableColumn fx:id="chitiet_search" prefWidth="214.0" text="Chi tiết" />
-                                <TableColumn fx:id="trangthai_search" prefWidth="146.0" text="Trạng thái" />
-                            </columns>
-                        </TableView>
-                        <TextField fx:id="hoten" layoutX="152.0" layoutY="30.0" prefHeight="31.0" prefWidth="207.0" promptText="Họ tên" />
-                        <TextField fx:id="sdt" layoutX="377.0" layoutY="30.0" promptText="SĐT" />
-                        <TextField fx:id="ngay" layoutX="582.0" layoutY="30.0" promptText="Ngày" />
-                        <Button layoutX="1134.0" layoutY="28.0" mnemonicParsing="false" onAction="#search" prefHeight="31.0" prefWidth="73.0" text="Tìm" />
-                        <ComboBox fx:id="tim_Noidung" layoutX="790.0" layoutY="28.0" prefWidth="150.0" promptText="Nội dung" />
-                        <ComboBox fx:id="tim_Trangthai" layoutX="961.0" layoutY="28.0" prefWidth="150.0" promptText="Trạng thái" />
-                    </children>
-                </AnchorPane>
-                <AnchorPane fx:id="thongKe_Quy" layoutX="265.0" layoutY="114.0" prefHeight="722.0" prefWidth="1400.0" visible="false">
-                    <children>
-                        <Label layoutX="52.0" layoutY="25.0" prefHeight="35.0" prefWidth="175.0" text="Thống kê quý :">
-                            <font>
-                                <Font size="24.0" />
-                            </font>
-                        </Label>
-                        <TableView fx:id="tableViewQuarterOfYear" layoutX="-19.0" layoutY="80.0" prefHeight="459.0" prefWidth="1234.0">
-                            <columns>
-                                <TableColumn fx:id="colSTT2" prefWidth="60.0" text="STT" />
-                                <TableColumn fx:id="colName2" prefWidth="191.0" text="Họ tên" />
-                                <TableColumn fx:id="colAddress2" prefWidth="117.0" text="Địa chỉ" />
-                                <TableColumn fx:id="colPhone2" prefWidth="144.0" text="SĐT" />
-                                <TableColumn fx:id="colDate2" prefWidth="169.0" text="Ngày nhận đơn" />
-                                <TableColumn fx:id="colClassify2" prefWidth="193.0" text="Nội dung phản ánh" />
-                                <TableColumn fx:id="colNoiDung2" prefWidth="214.0" text="Chi tiết" />
-                                <TableColumn fx:id="colState2" prefWidth="146.0" text="Trạng thái" />
-                            </columns>
-                        </TableView>
-                        <Button layoutX="490.0" layoutY="27.0" mnemonicParsing="false" onAction="#buttonShow" prefHeight="31.0" prefWidth="75.0" text="Xem" />
-                        <ComboBox fx:id="quy" layoutX="216.0" layoutY="29.0" prefHeight="31.0" prefWidth="81.0" promptText="Quý" />
-                        <Label layoutX="1065.0" layoutY="45.0" prefHeight="21.0" prefWidth="71.0" text="Tổng số: " />
-                        <Label fx:id="allDon2" alignment="CENTER_RIGHT" layoutX="1116.0" layoutY="45.0" prefHeight="21.0" prefWidth="24.0" text="0" />
-                        <Label layoutX="1150.0" layoutY="45.0" text="đơn" />
-                        <ComboBox fx:id="Tim_TrangthaiQuy" layoutX="317.0" layoutY="28.0" prefHeight="32.0" prefWidth="156.0" promptText="Trạng thái đơn" />
-                    </children>
-                </AnchorPane>
-                <ImageView fitHeight="73.0" fitWidth="77.0" layoutX="55.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../photo/video-conference.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="80.0" fitWidth="92.0" layoutX="12.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../photo/resume.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="12.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../photo/registration.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="12.0" layoutY="296.0" pickOnBounds="true">
-                    <image>
-                        <Image url="@../../photo/hourglass.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="12.0" layoutY="384.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../photo/seo.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="12.0" layoutY="475.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../photo/calendar.png" />
-                    </image>
-                </ImageView>
-            </children>
-        </AnchorPane>
-    </left>
+         <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Button>
+                  <CheckBox fx:id="selectAllDonNop" layoutX="1110.0" layoutY="574.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="124.0" text="Chọn tất cả" />
+                  <Button layoutX="1000.0" layoutY="569.0" mnemonicParsing="false" onAction="#delete" prefHeight="31.0" prefWidth="88.0" text="Xóa" />
+                  <Button layoutX="888.0" layoutY="570.0" mnemonicParsing="false" onAction="#group" text="Nhóm đơn" />
+               </children>
+            </AnchorPane>
+            <Button layoutX="92.0" layoutY="475.0" mnemonicParsing="false" onAction="#button_thongKe_Quy" prefHeight="80.0" prefWidth="144.0" text="Thống kê của quý" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <AnchorPane fx:id="ds_XuLi" layoutX="265.0" layoutY="114.0" prefHeight="722.0" prefWidth="1400.0" visible="false">
+               <children>
+                  <Label layoutX="57.0" layoutY="21.0" prefHeight="35.0" prefWidth="324.0" text="Danh sách đơn đang chờ xử lí">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="tableWaitingList" layoutX="-19.0" layoutY="80.0" prefHeight="459.0" prefWidth="1234.0">
+                     <columns>
+                        <TableColumn fx:id="colSTT1" prefWidth="60.0" text="STT" />
+                        <TableColumn fx:id="colName1" prefWidth="191.0" text="Họ tên" />
+                        <TableColumn fx:id="colAddress1" prefWidth="117.0" text="Địa chỉ" />
+                        <TableColumn fx:id="colPhone1" prefWidth="144.0" text="SĐT" />
+                        <TableColumn fx:id="colDate1" prefWidth="169.0" text="Ngày nhận đơn" />
+                        <TableColumn fx:id="colClassify1" prefWidth="193.0" text="Nội dung phản ánh" />
+                        <TableColumn fx:id="colNoiDung1" prefWidth="214.0" text="Chi tiết" />
+                        <TableColumn fx:id="colState1" prefWidth="146.0" text="Trạng thái" />
+                     </columns>
+                  </TableView>
+                  <Label layoutX="1065.0" layoutY="45.0" prefHeight="21.0" prefWidth="71.0" text="Tổng số: " />
+                  <Label layoutX="1150.0" layoutY="45.0" text="đơn" />
+                  <Label fx:id="allDon1" alignment="CENTER_RIGHT" layoutX="1116.0" layoutY="45.0" prefHeight="21.0" prefWidth="24.0" text="0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="timKiem" layoutX="265.0" layoutY="114.0" prefHeight="645.0" prefWidth="1254.0" visible="false">
+               <children>
+                  <Label layoutX="31.0" layoutY="26.0" text="Tìm kiếm:">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="tableSearch" layoutX="7.0" layoutY="80.0" prefHeight="459.0" prefWidth="1232.0">
+                     <columns>
+                        <TableColumn fx:id="stt_search" prefWidth="60.0" text="STT" />
+                        <TableColumn fx:id="hoten_search" prefWidth="191.0" text="Họ tên" />
+                        <TableColumn fx:id="diachi_search" prefWidth="117.0" text="Địa chỉ" />
+                        <TableColumn fx:id="sdt_search" prefWidth="144.0" text="SĐT" />
+                        <TableColumn fx:id="ngay_search" prefWidth="169.0" text="Ngày nhận đơn" />
+                        <TableColumn fx:id="noidung_search" prefWidth="193.0" text="Nội dung phản ánh" />
+                        <TableColumn fx:id="chitiet_search" prefWidth="214.0" text="Chi tiết" />
+                        <TableColumn fx:id="trangthai_search" prefWidth="146.0" text="Trạng thái" />
+                     </columns>
+                  </TableView>
+                  <TextField fx:id="hoten" layoutX="152.0" layoutY="30.0" prefHeight="31.0" prefWidth="207.0" promptText="Họ tên" />
+                  <TextField fx:id="sdt" layoutX="377.0" layoutY="30.0" promptText="SĐT" />
+                  <TextField fx:id="ngay" layoutX="582.0" layoutY="30.0" promptText="Ngày" />
+                  <Button layoutX="1134.0" layoutY="28.0" mnemonicParsing="false" onAction="#search" prefHeight="31.0" prefWidth="73.0" text="Tìm" />
+                  <ComboBox fx:id="tim_Noidung" layoutX="790.0" layoutY="28.0" prefWidth="150.0" promptText="Nội dung" />
+                  <ComboBox fx:id="tim_Trangthai" layoutX="961.0" layoutY="28.0" prefWidth="150.0" promptText="Trạng thái" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="thongKe_Quy" layoutX="265.0" layoutY="114.0" prefHeight="722.0" prefWidth="1400.0">
+               <children>
+                  <Label layoutX="52.0" layoutY="25.0" prefHeight="35.0" prefWidth="175.0" text="Thống kê quý :">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="tableViewQuarterOfYear" layoutX="-19.0" layoutY="80.0" prefHeight="459.0" prefWidth="1234.0">
+                     <columns>
+                        <TableColumn fx:id="colSTT2" prefWidth="60.0" text="STT" />
+                        <TableColumn fx:id="colName2" prefWidth="191.0" text="Họ tên" />
+                        <TableColumn fx:id="colAddress2" prefWidth="117.0" text="Địa chỉ" />
+                        <TableColumn fx:id="colPhone2" prefWidth="144.0" text="SĐT" />
+                        <TableColumn fx:id="colDate2" prefWidth="169.0" text="Ngày nhận đơn" />
+                        <TableColumn fx:id="colClassify2" prefWidth="193.0" text="Nội dung phản ánh" />
+                        <TableColumn fx:id="colNoiDung2" prefWidth="214.0" text="Chi tiết" />
+                        <TableColumn fx:id="colState2" prefWidth="146.0" text="Trạng thái" />
+                     </columns>
+                  </TableView>
+                  <Button layoutX="490.0" layoutY="27.0" mnemonicParsing="false" onAction="#buttonShow" prefHeight="31.0" prefWidth="75.0" text="Xem" />
+                  <ComboBox fx:id="quy" layoutX="216.0" layoutY="29.0" prefHeight="31.0" prefWidth="81.0" promptText="Quý" />
+                  <Label layoutX="1065.0" layoutY="45.0" prefHeight="21.0" prefWidth="71.0" text="Tổng số: " />
+                  <Label fx:id="allDon2" alignment="CENTER_RIGHT" layoutX="1116.0" layoutY="45.0" prefHeight="21.0" prefWidth="24.0" text="0" />
+                  <Label layoutX="1150.0" layoutY="45.0" text="đơn" />
+                  <ComboBox fx:id="Tim_TrangthaiQuy" layoutX="317.0" layoutY="28.0" prefHeight="32.0" prefWidth="156.0" promptText="Trạng thái đơn" />
+               </children>
+            </AnchorPane>
+            <ImageView fitHeight="73.0" fitWidth="77.0" layoutX="55.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../photo/video-conference.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="80.0" fitWidth="92.0" layoutX="12.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../photo/resume.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="12.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../photo/registration.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="12.0" layoutY="296.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../../photo/hourglass.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="12.0" layoutY="384.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../photo/seo.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="12.0" layoutY="475.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../photo/calendar.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </left>
+
 </BorderPane>
