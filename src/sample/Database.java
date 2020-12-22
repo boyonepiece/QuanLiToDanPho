@@ -2,6 +2,7 @@ package sample;
 import sample.Hash.HashID;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -16,7 +17,7 @@ public class Database {
         this.driveName="com.microsoft.sqlserver.jdbc.SQLServerDriver";
         this.url="jdbc:sqlserver://localhost:1433;databaseName=DANPHO";
         this.username="sa";
-        this.password="123456";
+        this.password="23571113";
         this.connection=createConnection();
     }
     public Connection createConnection(){
@@ -164,7 +165,7 @@ public class Database {
         pre1.setNString(4,classify);
         pre1.executeUpdate();
 
-        var query2="INSERT INTO DONMOINHAN(ID_DON,NOIDUNGPHANANH) VALUES(?,?)";
+        var query2="INSERT INTO DONMOINHAN(ID_DON,NOIDUNGPHANANH,PAIR) VALUES(?,?,0)";
         PreparedStatement pre2=getConnection().prepareStatement(query2);
         pre2.setString(1,petitionID);
         pre2.setNString(2,content);
@@ -190,19 +191,20 @@ public class Database {
         createNewPetition(idUser,day,classify,content);
     }
 
-    public void insertPendingPetition(String petitionID,String content,String dateSent) throws SQLException{
-        var query="INSERT INTO DONDANGCHOXULY(ID_DON,NOIDUNGPHANANH,NGAYCHUYENLENCAPTREN) VALUES (?,?,?)";
+    public void insertPendingPetition(String petitionID,String content,String dateSent,int pair) throws SQLException{
+        var query="INSERT INTO DONDANGCHOXULY(ID_DON,NOIDUNGPHANANH,NGAYCHUYENLENCAPTREN,PAIR) VALUES (?,?,?,?)";
         PreparedStatement pre1=getConnection().prepareStatement(query);
         pre1.setString(1,petitionID);
         pre1.setNString(2,content);
         pre1.setString(3,dateSent);
+        pre1.setInt(4,pair);
         pre1.executeUpdate();
     }
 
     public void insertSolvedPetition(String petitionID,String contentPetition,String phoneNumberResponder,
-                                     String nameResponder,String organization,String contentResponse,String sentDate,String solvedDate) throws SQLException{
+                                     String nameResponder,String organization,String contentResponse,String sentDate,String solvedDate,int pair) throws SQLException{
         deletePetitionForUpdate(petitionID,2);
-        var query="INSERT INTO DONDAXULY(ID_DON,NOIDUNGPHANANH,SODIENTHOAINGUOIPHANANH,TENNGUOIPHANHOI,COQUAN,NOIDUNGPHANHOI,NGAYPHANHOI,NGAYCHUYENLENCAPTREN) VALUES(?,?,?,?,?,?,?,?)";
+        var query="INSERT INTO DONDAXULY(ID_DON,NOIDUNGPHANANH,SODIENTHOAINGUOIPHANANH,TENNGUOIPHANHOI,COQUAN,NOIDUNGPHANHOI,NGAYPHANHOI,NGAYCHUYENLENCAPTREN) VALUES(?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement=getConnection().prepareStatement(query);
         preparedStatement.setString(1,petitionID);
         preparedStatement.setNString(2,contentPetition);
@@ -212,6 +214,7 @@ public class Database {
         preparedStatement.setNString(6,contentResponse);
         preparedStatement.setString(7,solvedDate);
         preparedStatement.setString(8,sentDate);
+        preparedStatement.setInt(9,pair);
         preparedStatement.executeUpdate();
     }
 
@@ -226,6 +229,8 @@ public class Database {
         pre2.setString(1,peopleID);
         pre2.executeUpdate();
     }
+
+    //delete when petition is spam
     public void deletePetition(String petitionID) throws SQLException{
 
         var query1="DELETE FROM DONMOINHAN WHERE ID_DON=?;";
@@ -262,6 +267,7 @@ public class Database {
         }
     }
 
+    //delete when move the petition from table to another table
     public void deletePetitionForUpdate(String petitionID,int database) throws SQLException{
         //DELETE PETITION FROM DONMOINHAN
         Connection connection=getConnection();
@@ -289,21 +295,66 @@ public class Database {
         String peopleID=getPeopleID(phoneNumber);
         String petitionID=getIDPetition(peopleID,classify,date,content,-1);
         deletePetitionForUpdate(petitionID,1);
-        insertPendingPetition(petitionID,content,sentDate);
+        insertPendingPetition(petitionID,content,sentDate,0);
     }
 
 
     /*
+    * COMBINE THE SAME PETITION
+    * */
+
+    /*
+     * Chú thích:
+     * Khi tổng hợp các đơn có nội dung trùng nhau (len(listPetitionID)>1) thì sẽ truyền danh sách có id_dơn và nội dung mới do tổ trưởng tóm tắt lại các
+     * nội dùng trùng nhau, khi đó sẽ chèn đơn cũ đã được thay thế nội dung mới vào bảng ĐONANGCHOXULY
+     *
+     * */
+
+    public int getMaxPair() throws SQLException{
+        var query="SELECT TOP 1 PAIR FROM DONDANGCHOXULY ORDER BY PAIR DESC";
+        PreparedStatement pre=getConnection().prepareStatement(query);
+        ResultSet result=pre.executeQuery();
+        if(result.next()){
+            return result.getInt(1);
+        }
+        return -1;
+    }
+//    public void updatePair(String petitionID,int pair) throws SQLException{
+//        var query="UPDATE DONMOINHAN SET PAIR="+pair+ "WHERE ID_DON=?";
+//        PreparedStatement pre=getConnection().prepareStatement(query);
+//        pre.setString(1,petitionID);
+//        pre.executeUpdate();
+//    }
+
+
+    public void combinePetition(ArrayList<String> listPetitionID,String newContent,String dateSent) throws SQLException{
+        int maxPair=getMaxPair();
+        for(String petitionID: listPetitionID){
+            //updatePair(petitionID,maxPair+1);
+            deletePetitionForUpdate(petitionID,1);
+            insertPendingPetition(petitionID,newContent,dateSent,maxPair+1);
+        }
+    }
+
+    /*
      ADD RESPONSE FROM ORGANIZATION
      */
-    public void addResponsesFromOrganization(String nameUser,String phoneNumber,String classify,String date,
+    public int getPair(String petitionID) throws SQLException{
+        var query="SELECT PAIR FROM DONDANGCHOXULY WHERE ID_DON='"+petitionID+"'";
+        PreparedStatement pre=getConnection().prepareStatement(query);
+        ResultSet resultSet=pre.executeQuery();
+        if(resultSet.next()) return resultSet.getInt(1);
+        return -1;
+    }
+    public void addResponses(String nameUser,String phoneNumber,String classify,String date,
                                              String contentPetition,String phoneNumberResponder,
                                              String nameResponder,String organization,String contentResponse,
                                              String sentDate,String solvedDate ) throws SQLException {
         String peopleID=getPeopleID(phoneNumber);
         String petitionID=getIDPetition(peopleID,classify,date,contentPetition,0);
+        int pair=getPair(petitionID);
         deletePetitionForUpdate(petitionID,2);
-        insertSolvedPetition(petitionID,contentPetition,phoneNumberResponder,nameResponder,organization,contentResponse,sentDate,solvedDate);
+        insertSolvedPetition(petitionID,contentPetition,phoneNumberResponder,nameResponder,organization,contentResponse,sentDate,solvedDate,pair);
     }
 
 
@@ -380,13 +431,14 @@ public class Database {
         int count=0;
         var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNGPHANANH " +
                 "FROM NGUOIPHANANH N INNER JOIN DONPHANANH DPA ON N.CMT=DPA.CMT " +
-                "INNER JOIN "+nameTable+" D ON DPA.ID_DON=D.ID_DON WHERE ";
+                "INNER JOIN "+nameTable+" D ON DPA.ID_DON=D.ID_DON";
         if(name.length()!=0){
-            query+=" TEN= N'"+ name+"'";
+            query+=" WHERE TEN= N'"+ name+"'";
             count++;
         }
 
         if(phoneNumber.length()!=0){
+            if(count==0) query+=" WHERE ";
             if(count!=0){
                 query+=" AND ";
             }
@@ -395,6 +447,7 @@ public class Database {
         }
 
         if(day.length()!=0){
+            if(count==0) query+=" WHERE ";
             if(count!=0){
                 query+=" AND ";
             }
@@ -403,6 +456,7 @@ public class Database {
         }
 
         if(classify.length()!=0){
+            if(count==0) query+=" WHERE ";
             if(count!=0){
                 query+=" AND ";
             }
