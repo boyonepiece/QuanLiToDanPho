@@ -37,9 +37,7 @@ public class Controller_Requested {
     private AnchorPane ds_MoiNhan;
     //donNop
     @FXML
-    private TextField hoTen, diaChi, SDT1,SDT2, noiDungKhac;
-    @FXML
-    PasswordField cmt1,cmt2;
+    private TextField hoTen, diaChi, SDT1,SDT2, noiDungKhac,cmt1,cmt2;
     @FXML
     private Group groupNopDon;
     @FXML
@@ -236,17 +234,18 @@ public class Controller_Requested {
             @Override
             public void handle(ActionEvent actionEvent) {
                 Database database = new Database();
+                ArrayList<String> listPetitionID = new ArrayList<String>();
                 for(DonPhanAnh donPhanAnh : list){
                     if(donPhanAnh.getRemark().isSelected()){
-                        LocalDate date1 = LocalDate.now();
-                        String currDate =  date1.toString();
-                        try {
-                            database.confirmFromNewPetitionToPendingPetition(donPhanAnh.getPhoneNumber(),donPhanAnh.getDate(),
-                                    donPhanAnh.getClassify(),donPhanAnh.getChiTiet(),currDate);
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace();
-                        }
+                        listPetitionID.add(donPhanAnh.getIdPetition());
                     }
+                }
+                LocalDate date1 = LocalDate.now();
+                String currDate =  date1.toString();
+                try {
+                    database.combinePetition(listPetitionID,textArea.getText(),currDate);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
                 }
                 showAlter();
                 try {
@@ -337,8 +336,11 @@ public class Controller_Requested {
         hi.setContentText("Update to the database successfully !");
         hi.showAndWait();
     }
-
-    public void luuLai(ActionEvent actionEvent) throws SQLException {
+    public void clear(){
+        cmt2.clear();hoTen.clear();cmt1.clear();diaChi.clear();
+        chiTiet.clear();SDT1.clear();
+    }
+    public void luuLai() throws SQLException {
         ObservableList<Node> list = this.stackPane.getChildren();
         Node hasInfo = list.get(list.size()-1);
         Node noInfo = list.get(list.size()-2);
@@ -378,7 +380,7 @@ public class Controller_Requested {
             showAlter();
         }
         database = null;
-
+        clear();
 
     }
 
@@ -431,6 +433,10 @@ public class Controller_Requested {
             String noiDung = newPetition.getString("NOIDUNGPHANANH");
             donPhanAnh = new DonPhanAnh(name,address,phone,day,
                     classify,noiDung,i+1,false);
+            String cmt = database.getPeopleID(phone);
+            String petitionID = database.getIDPetition(cmt,donPhanAnh.getClassify(),donPhanAnh.getDate(),
+                    donPhanAnh.getChiTiet(),-1);
+            donPhanAnh.setIdPetition(petitionID);
             list.add(donPhanAnh);
             i++;
         }

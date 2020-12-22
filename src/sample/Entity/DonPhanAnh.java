@@ -9,6 +9,7 @@ public class DonPhanAnh {
     private String date;
     private String classify;
     private String chiTiet;
+    private String idPetition;
     private boolean state;
     private int stt;
     private CheckBox remark ;
@@ -24,6 +25,19 @@ public class DonPhanAnh {
         this.stt = stt;
         this.state = state;
         this.remark = new CheckBox();
+        this.idPetition = idPetition;
+    }
+
+    public String getIdPetition() {
+        return idPetition;
+    }
+
+    public void setIdPetition(String idPetition) {
+        this.idPetition = idPetition;
+    }
+
+    public boolean isState() {
+        return state;
     }
 
     public CheckBox getRemark() {
