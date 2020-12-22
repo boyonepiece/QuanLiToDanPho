@@ -93,7 +93,8 @@ public class Controller_Requested {
     private AnchorPane timKiem;
     @FXML
     private AnchorPane thongKe_Quy;
-
+    @FXML
+    public ComboBox<String> Tim_TrangthaiQuy;
     @FXML
     public ComboBox quy;
     @FXML
