@@ -17,7 +17,7 @@ public class Database {
         this.driveName="com.microsoft.sqlserver.jdbc.SQLServerDriver";
         this.url="jdbc:sqlserver://localhost:1433;databaseName=DANPHO";
         this.username="sa";
-        this.password="09042000";
+        this.password="23571113";
         this.connection=createConnection();
     }
     public Connection createConnection(){
@@ -395,7 +395,7 @@ public class Database {
      * 1:  DON DA XULY
      *
      * */
-    public ResultSet getListPetitionForQuarterOfYear(int quarterOfYear,int table) throws SQLException{
+    public ResultSet getListPetitionForQuarterOfYear(int quarterOfYear,int year,int table) throws SQLException{
         String nameTable="";
         if(table==-1){
             nameTable="DONMOINHAN";
@@ -406,14 +406,30 @@ public class Database {
         else if(table==1){
             nameTable="DONDAXULY";
         }
-        int a=3*(quarterOfYear-1)+1;
-        int b=3*quarterOfYear;
+
         var query="SELECT TEN,NOISONG,DIENTHOAI,NGAY,PHANLOAI,NOIDUNGPHANANH \n" +
                 "FROM NGUOIPHANANH NPA INNER JOIN DONPHANANH DPA ON NPA.CMT=DPA.CMT \n" +
-                "INNER JOIN " +nameTable+" D ON DPA.ID_DON=D.ID_DON WHERE MONTH(NGAY) BETWEEN ? AND ? ORDER BY NGAY DESC";
+                "INNER JOIN " +nameTable+" D ON DPA.ID_DON=D.ID_DON ";
+        int count=0;
+        if(year!=0){
+            query+= " WHERE YEAR(NGAY)="+year;
+            count++;
+        }
+
+        if(quarterOfYear!=0){
+            int a=3*(quarterOfYear-1)+1;
+            int b=3*quarterOfYear;
+            if(count==0){
+                query+= " WHERE ";
+            }
+            if(count!=0){
+                query+=" AND ";
+            }
+            query+= " MONTH(NGAY) BETWEEN "+a+ " AND "+b;
+
+        }
+        query+= " ORDER BY NGAY DESC ";
         PreparedStatement pre=getConnection().prepareStatement(query);
-        pre.setInt(1,a);
-        pre.setInt(2,b);
         return pre.executeQuery();
     }
 

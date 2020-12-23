@@ -1,5 +1,6 @@
 package sample.Controller;
 
+import com.sun.javafx.geom.Quat4f;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -27,6 +28,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Controller_Requested {
 
@@ -96,6 +100,8 @@ public class Controller_Requested {
     @FXML
     public ComboBox quy;
     @FXML
+    public ComboBox years;
+    @FXML
     public ComboBox tim_Noidung;
     @FXML
     public ComboBox tim_Trangthai;
@@ -115,7 +121,9 @@ public class Controller_Requested {
     @FXML
     private TableColumn<DonPhanAnh, Integer> stt_search;
 
+    List<Integer> temp= IntStream.rangeClosed(1990, 2050).boxed().collect(Collectors.toList());
     ObservableList<Integer> list_quy = FXCollections.observableArrayList(1, 2, 3, 4);
+    ObservableList<Integer> list_years = FXCollections.observableArrayList(temp);
     ObservableList<String> list_Noidung = FXCollections.observableArrayList("An ninh, trật tự", "Cơ sở hạ tầng", "Quy định, quy chế", "Khác...");
     ObservableList<String> list_Trangthai = FXCollections.observableArrayList("Mới ghi nhận", "Chưa giải quyết", "Đã giải quyết");
 
@@ -172,17 +180,32 @@ public class Controller_Requested {
         this.timKiem.setVisible(false);
         this.thongKe_Quy.setVisible(true);
         quy.setItems(list_quy);
+        years.setItems(list_years);
         Tim_TrangthaiQuy.setItems(list_Trangthai);
 
     }
     public void buttonShow(ActionEvent e) throws SQLException {
-        int QuarterOfYear = (int)quy.getValue();
+        int QuarterOfYear;
+        try{
+            QuarterOfYear= (int)quy.getValue();
+        }
+        catch(NullPointerException t){
+            QuarterOfYear=0;
+        }
+
         String value = Tim_TrangthaiQuy.getValue();
+        int year;
+        try{
+            year=(int)years.getValue();
+        }
+        catch(NullPointerException t) {
+            year = 0;
+        }
         int table;
         if (value.equals("Mới ghi nhận")) table = -1;
         else if (value.equals("Chưa giải quyết")) table = 0;
         else table = 1;
-        listQuarterOfYear(QuarterOfYear, table);
+        listQuarterOfYear(QuarterOfYear,year, table);
     }
 
     //Xử lí nút Close ứng dụng
@@ -538,7 +561,7 @@ public class Controller_Requested {
     }
 
     // Hien thi thong ke theo quy
-    public void listQuarterOfYear(int Quarter, int table) throws SQLException {
+    public void listQuarterOfYear(int Quarter,int year, int table) throws SQLException {
         ObservableList<DonPhanAnh> list1;
 
         colSTT2.setCellValueFactory(new PropertyValueFactory<>("stt"));
@@ -551,14 +574,14 @@ public class Controller_Requested {
 
 
         colState2.setCellValueFactory(new PropertyValueFactory<>("remark"));
-        list1 = getListQuarterOfYear(Quarter, table);
+        list1 = getListQuarterOfYear(Quarter,year, table);
 
         tableViewQuarterOfYear.setItems(list1);
     }
 
-    private ObservableList<DonPhanAnh> getListQuarterOfYear(int quarter, int table) throws SQLException {
+    private ObservableList<DonPhanAnh> getListQuarterOfYear(int quarter,int year, int table) throws SQLException {
         Database database = new Database();
-        ResultSet PetitionWaiting = database.getListPetitionForQuarterOfYear(quarter, table);
+        ResultSet PetitionWaiting = database.getListPetitionForQuarterOfYear(quarter,year, table);
         ArrayList<DonPhanAnh> list = new ArrayList<DonPhanAnh>();
         int i=0;
         while(PetitionWaiting.next()){
