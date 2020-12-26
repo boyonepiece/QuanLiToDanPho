@@ -18,11 +18,9 @@ import java.sql.SQLException;
 
 public class Controller_Client {
     @FXML
-    private TextField hoTen, diaChi, SDT1,SDT2, noiDungKhac;
+    private TextField hoTen, diaChi, SDT1,SDT2, noiDungKhac,cmt1,cmt2;
     @FXML
     private TextArea chiTiet;
-    @FXML
-    PasswordField cmt1,cmt2;
     @FXML
     private DatePicker ngaySinh,ngayNop,ngayNop2;
     @FXML
@@ -56,7 +54,7 @@ public class Controller_Client {
     }
 
 
-    public void luuLai(ActionEvent actionEvent) throws SQLException {
+    public void luuLai() throws SQLException {
         ObservableList<Node> list = this.stackPane.getChildren();
         Node hasInfo = list.get(list.size()-1);
         Node noInfo = list.get(list.size()-2);
@@ -96,7 +94,12 @@ public class Controller_Client {
             showAlter();
         }
         database = null;
+        clear();
 
+    }
+    public void clear(){
+        cmt2.clear();hoTen.clear();cmt1.clear();diaChi.clear();
+        chiTiet.clear();SDT1.clear();
     }
 
 
