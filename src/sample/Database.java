@@ -17,7 +17,7 @@ public class Database {
         this.driveName="com.microsoft.sqlserver.jdbc.SQLServerDriver";
         this.url="jdbc:sqlserver://localhost:1433;databaseName=DANPHO";
         this.username="sa";
-        this.password="09042000";
+        this.password="23571113";
         this.connection=createConnection();
     }
     public Connection createConnection(){
@@ -476,7 +476,9 @@ public class Database {
             if(count!=0){
                 query+=" AND ";
             }
-            query+=" PHANLOAI=N'"+classify+"'";
+            if(classify=="Khác...")
+                query+=" PHANLOAI NOT LIkE N'%ninh, trật%' AND PHANLOAI NOT LIKE N'%sở hạ%' AND PHANLOAI NOT LIKE N'%định, quy%'";
+            else query+=" PHANLOAI=N'"+classify+"'";
         }
 
         PreparedStatement pre=getConnection().prepareStatement(query);
