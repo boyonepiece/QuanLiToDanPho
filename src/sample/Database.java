@@ -16,8 +16,8 @@ public class Database {
     public Database(){
         this.driveName="com.microsoft.sqlserver.jdbc.SQLServerDriver";
         this.url="jdbc:sqlserver://localhost:1433;databaseName=DANPHO";
-        this.username="sa";
-        this.password="23571113";
+        this.username="winner";
+        this.password="123";
         this.connection=createConnection();
     }
     public Connection createConnection(){
@@ -495,6 +495,7 @@ public class Database {
         ResultSet resultSet=pre.executeQuery();
         return resultSet;
     }
+
 
 
 }

@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="mssql-jdbc-8.4.0.jre14">
-    <CLASSES>
-      <root url="jar://E:/Lib/sqljdbc_8.4.0.0_enu/sqljdbc_8.4/enu/mssql-jdbc-8.4.0.jre14.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
