@@ -439,7 +439,6 @@ public class Controller_Requested {
 
         colState.setCellValueFactory(new PropertyValueFactory<>("remark"));
         list = getList();
-
         tableNewList.setItems(list);
     }
     public ObservableList<DonPhanAnh> getList() throws SQLException {
