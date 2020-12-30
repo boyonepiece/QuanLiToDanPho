@@ -53,8 +53,26 @@ public class Controller_Client {
         hi.showAndWait();
     }
 
+    public void showWarning(){
+        Alert hi = new Alert(Alert.AlertType.ERROR);
+        hi.setTitle("Lỗi thông tin đơn nộp");
+        hi.setHeaderText(null);
+        hi.setContentText("Thông tin đơn không chính xác!");
+        hi.showAndWait();
+    }
+
+    public boolean check_infor(){
+        if(!hoTen.getText().equals("") || !cmt1.getText().equals("")
+                || !diaChi.getText().equals("") || ngaySinh.getValue()!=null
+                || !SDT1.getText().equals("") || ngayNop.getValue() != null) return true;
+        return false;
+    }
 
     public void luuLai() throws SQLException {
+        if(!check_infor()){
+            showWarning();
+            return;
+        } 
         ObservableList<Node> list = this.stackPane.getChildren();
         Node hasInfo = list.get(list.size()-1);
         Node noInfo = list.get(list.size()-2);
