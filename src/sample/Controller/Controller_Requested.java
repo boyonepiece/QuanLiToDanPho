@@ -121,11 +121,27 @@ public class Controller_Requested {
     @FXML
     private TableColumn<DonPhanAnh, Integer> stt_search;
 
+    // cap nhat don da giai quyet
+    @FXML
+    private TextField organizeRes;
+
+    @FXML
+    private TextArea contentSolved;
+
+    @FXML
+    private TextField nameRes;
+
+    @FXML
+    private TextField phoneRes;
+
+    public ObservableList<DonPhanAnh> list1;
+
     List<Integer> temp= IntStream.rangeClosed(1990, 2050).boxed().collect(Collectors.toList());
     ObservableList<Integer> list_quy = FXCollections.observableArrayList(1, 2, 3, 4);
     ObservableList<Integer> list_years = FXCollections.observableArrayList(temp);
     ObservableList<String> list_Noidung = FXCollections.observableArrayList("An ninh, trật tự", "Cơ sở hạ tầng", "Quy định, quy chế", "Khác...");
     ObservableList<String> list_Trangthai = FXCollections.observableArrayList("Mới ghi nhận", "Chưa giải quyết", "Đã giải quyết");
+
 
     //button Nộp đơn
     public void button_donNop(){
@@ -472,7 +488,8 @@ public class Controller_Requested {
         return list1;
     }
 
-    public void initialize(){
+    public void initialize() throws SQLException {
+
         selectAllDonNop.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
@@ -515,9 +532,9 @@ public class Controller_Requested {
     
     
     // Hien thi danh sach dang xu li.
-    ObservableList<DonPhanAnh> list1;
-    public void donDangXuli() throws SQLException {
 
+
+    public void donDangXuli() throws SQLException {
 
         colSTT1.setCellValueFactory(new PropertyValueFactory<>("stt"));
         colName1.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -532,7 +549,7 @@ public class Controller_Requested {
         tableWaitingList.setItems(list1);
     }
 
-    private ObservableList<DonPhanAnh> getListWaiting() throws SQLException {
+    public ObservableList<DonPhanAnh> getListWaiting() throws SQLException {
         Database database = new Database();
         ResultSet PetitionWaiting = database.getListPetitionUnsolved();
         ArrayList<DonPhanAnh> list = new ArrayList<DonPhanAnh>();
@@ -578,7 +595,7 @@ public class Controller_Requested {
         tableViewQuarterOfYear.setItems(list1);
     }
 
-    private ObservableList<DonPhanAnh> getListQuarterOfYear(int quarter,int year, int table) throws SQLException {
+    public ObservableList<DonPhanAnh> getListQuarterOfYear(int quarter,int year, int table) throws SQLException {
         Database database = new Database();
         ResultSet PetitionWaiting = database.getListPetitionForQuarterOfYear(quarter,year, table);
         ArrayList<DonPhanAnh> list = new ArrayList<DonPhanAnh>();
@@ -605,4 +622,28 @@ public class Controller_Requested {
         allDon2.setText(String.valueOf(size));
         return list2;
     }
+
+    // Xử lí đơn đang xử lí xác nhận đưa lên cấp trên.
+
+    public void changeScreen(ActionEvent event) throws IOException {
+
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../Fxml/solvedInfor.fxml"));
+        Parent studentViewParent = loader.load();
+        Scene scene = new Scene(studentViewParent);
+        Controller_Home controller = loader.getController();
+        DonPhanAnh don = null;
+        for(DonPhanAnh donPhanAnh : list1){
+            if(donPhanAnh.getRemark().isSelected()){
+                // LocalDate date1 = LocalDate.now();
+                // String currDate =  date1.toString();
+                don = donPhanAnh;
+                break;
+            }
+        }
+        controller.setDonXuLy(don);
+        stage.setScene(scene);
+    }
+
 }

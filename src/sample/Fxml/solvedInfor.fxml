@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.Controller_Home">
+   <children>
+      <TextField fx:id="organizeRes" layoutX="133.0" layoutY="112.0" />
+      <Text layoutX="28.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cơ quan xử lí" />
+      <Text layoutX="28.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nội dung giải quyết" />
+      <TextArea fx:id="contentSolved" layoutX="28.0" layoutY="232.0" prefHeight="94.0" prefWidth="509.0" wrapText="true" />
+      <Text layoutX="186.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="THÔNG TIN GIẢI QUYẾT">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <Button layoutX="259.0" layoutY="340.0" mnemonicParsing="false" onAction="#updateSolved" text="Xác nhận" />
+      <Text layoutX="28.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tên người xử lí" />
+      <TextField fx:id="nameRes" layoutX="133.0" layoutY="69.0" />
+      <Text layoutX="28.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Số điện thoại" />
+      <TextField fx:id="phoneRes" layoutX="133.0" layoutY="151.0" />
+   </children>
+</AnchorPane>

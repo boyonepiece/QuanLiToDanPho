@@ -16,8 +16,8 @@ public class Database {
     public Database(){
         this.driveName="com.microsoft.sqlserver.jdbc.SQLServerDriver";
         this.url="jdbc:sqlserver://localhost:1433;databaseName=DANPHO";
-        this.username="sa";
-        this.password="09042000";
+        this.username="winner";
+        this.password="123";
         this.connection=createConnection();
     }
     public Connection createConnection(){
@@ -204,7 +204,7 @@ public class Database {
     public void insertSolvedPetition(String petitionID,String contentPetition,String phoneNumberResponder,
                                      String nameResponder,String organization,String contentResponse,String sentDate,String solvedDate,int pair) throws SQLException{
         deletePetitionForUpdate(petitionID,2);
-        var query="INSERT INTO DONDAXULY(ID_DON,NOIDUNGPHANANH,SODIENTHOAINGUOIPHANANH,TENNGUOIPHANHOI,COQUAN,NOIDUNGPHANHOI,NGAYPHANHOI,NGAYCHUYENLENCAPTREN) VALUES(?,?,?,?,?,?,?,?,?)";
+        var query="INSERT INTO DONDAXULY(ID_DON,NOIDUNGPHANANH,SODIENTHOAI_NGUOIPHANHOI,TENNGUOIPHANHOI,COQUAN,NOIDUNGPHANHOI,NGAYPHANHOI,NGAYCHUYENLENCAPTREN,PAIR) VALUES(?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement=getConnection().prepareStatement(query);
         preparedStatement.setString(1,petitionID);
         preparedStatement.setNString(2,contentPetition);
@@ -348,15 +348,25 @@ public class Database {
     }
     public void addResponses(String nameUser,String phoneNumber,String classify,String date,
                                              String contentPetition,String phoneNumberResponder,
-                                             String nameResponder,String organization,String contentResponse,
-                                             String sentDate,String solvedDate ) throws SQLException {
+                                             String nameResponder,String organization,String contentResponse
+                                            ,String solvedDate ) throws SQLException {
         String peopleID=getPeopleID(phoneNumber);
         String petitionID=getIDPetition(peopleID,classify,date,contentPetition,0);
         int pair=getPair(petitionID);
+        String sentDate=getSentDate(petitionID);
         deletePetitionForUpdate(petitionID,2);
         insertSolvedPetition(petitionID,contentPetition,phoneNumberResponder,nameResponder,organization,contentResponse,sentDate,solvedDate,pair);
     }
 
+    public String getSentDate(String petitionID)throws SQLException {
+        var query="SELECT NGAYCHUYENLENCAPTREN FROM DONDANGCHOXULY WHERE ID_DON='" +petitionID+"'";
+        PreparedStatement pre=getConnection().prepareStatement(query);
+        ResultSet resultSet=pre.executeQuery();
+        if(resultSet.next()){
+            return resultSet.getString(1);
+        }
+        return null;
+    }
 
 
     /**
@@ -476,13 +486,16 @@ public class Database {
             if(count!=0){
                 query+=" AND ";
             }
-            query+=" PHANLOAI=N'"+classify+"'";
+            if(classify=="Khác...")
+                query+=" PHANLOAI NOT LIkE N'%ninh, trật%' AND PHANLOAI NOT LIKE N'%sở hạ%' AND PHANLOAI NOT LIKE N'%định, quy%'";
+            else query+=" PHANLOAI=N'"+classify+"'";
         }
 
         PreparedStatement pre=getConnection().prepareStatement(query);
         ResultSet resultSet=pre.executeQuery();
         return resultSet;
     }
+
 
 
 }
