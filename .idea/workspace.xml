@@ -20,18 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="85a3d263-da3c-41f0-96c3-701953dabc35" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/mssql_jdbc_8_4_1_jre14.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/mssql_jdbc_8_4_0_jre14.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller_Requested$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller_Requested$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller_Requested$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller_Requested$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller_Requested.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Test/sample/Controller/Controller_Requested.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Test/sample/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Test/sample/Database.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Controller/Controller_Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller/Controller_Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Fxml/sample_Client.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Fxml/sample_Client.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Controller/Controller_Requested.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller/Controller_Requested.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,16 +49,18 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="D:/JDBC/sqljdbc_8.4/enu/mssql-jdbc-8.4.1.jre14.jar" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../QuanLiToDanPho" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -109,7 +103,9 @@
       <workItem from="1608623583425" duration="568000" />
       <workItem from="1608625344293" duration="6901000" />
       <workItem from="1608707757479" duration="2735000" />
-      <workItem from="1608992021607" duration="431000" />
+      <workItem from="1608992021607" duration="1514000" />
+      <workItem from="1608993682844" duration="7813000" />
+      <workItem from="1609248868092" duration="1999000" />
     </task>
     <servers />
   </component>
@@ -150,35 +146,35 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1608631240772" />
-    <state x="592" y="218" key="FileChooserDialogImpl" timestamp="1608992064056">
+    <state x="592" y="218" key="FileChooserDialogImpl" timestamp="1609250643504">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="2106" y="275" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1608637990412" />
-    <state x="592" y="218" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1608992064056" />
-    <state width="1493" height="222" key="GridCell.Tab.0.bottom" timestamp="1608992222483">
+    <state x="592" y="218" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1609250643504" />
+    <state width="1493" height="222" key="GridCell.Tab.0.bottom" timestamp="1609250900579">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1877" height="36" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1608638010709" />
     <state width="1323" height="172" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1608710650270" />
-    <state width="1493" height="222" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1608992222483" />
-    <state width="1493" height="222" key="GridCell.Tab.0.center" timestamp="1608992222483">
+    <state width="1493" height="222" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1609250900579" />
+    <state width="1493" height="222" key="GridCell.Tab.0.center" timestamp="1609250900579">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1877" height="36" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1608638010709" />
     <state width="1323" height="172" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1608710650270" />
-    <state width="1493" height="222" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1608992222483" />
-    <state width="1493" height="222" key="GridCell.Tab.0.left" timestamp="1608992222483">
+    <state width="1493" height="222" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1609250900579" />
+    <state width="1493" height="222" key="GridCell.Tab.0.left" timestamp="1609250900579">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1877" height="36" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1608638010709" />
     <state width="1323" height="172" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1608710650269" />
-    <state width="1493" height="222" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1608992222483" />
-    <state width="1493" height="222" key="GridCell.Tab.0.right" timestamp="1608992222483">
+    <state width="1493" height="222" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1609250900579" />
+    <state width="1493" height="222" key="GridCell.Tab.0.right" timestamp="1609250900579">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1877" height="36" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1608638010709" />
     <state width="1323" height="172" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1608710650270" />
-    <state width="1493" height="222" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1608992222483" />
+    <state width="1493" height="222" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1609250900579" />
     <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1608628629860">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -195,11 +191,15 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1608628629860" />
-    <state x="352" y="0" key="SettingsEditor" timestamp="1608992067445">
+    <state x="352" y="0" key="SettingsEditor" timestamp="1608998654386">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="1806" y="94" key="SettingsEditor/0.0.1366.728/1366.0.1920.1040@1366.0.1920.1040" timestamp="1608637995128" />
-    <state x="352" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1608992067445" />
+    <state x="352" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1608998654386" />
+    <state x="490" y="154" width="540" height="524" key="StructurePopup" timestamp="1608999500771">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="490" y="154" width="540" height="524" key="StructurePopup/0.0.1536.824@0.0.1536.824" timestamp="1608999500771" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
